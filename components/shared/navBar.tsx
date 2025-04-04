@@ -3,15 +3,8 @@ import Link from "next/link";
 import Logo from "../ui/logo";
 import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
-import { useState } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../ui/sheet";
+
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 const menuItens = [
   {
@@ -68,19 +61,21 @@ function NavBar() {
               <Menu className="h-6 w-6 cursor-pointer" />
             </SheetTrigger>
             <SheetContent className="flex flex-col gap-4 items-start">
-              <ul className="flex flex-col gap-4">
-                {menuItens.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="text-sm font-medium transition-colors hover:text-purple-700"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <Button className=" bg-purple-600">Dashboard</Button>
+              <nav>
+                <ul className="flex flex-col gap-4">
+                  {menuItens.map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        className="text-sm font-medium transition-colors hover:text-purple-700"
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+              <Button className=" bg-purple-600 hover:bg-purple-700">Dashboard</Button>
             </SheetContent>
           </Sheet>
         </div>
