@@ -1,4 +1,5 @@
 import CanaisDeAjuda from "./components/canais-de-ajuda";
+import HistoriasDeSuperacao from "./components/historias-de-superacao";
 import HomeBanner from "./components/home-banner";
 import SectionMitosEVerdades from "./components/mitos-e-verdades";
 import SectionRealidadeEmNumeros from "./components/realidade-em-numeros";
@@ -14,6 +15,7 @@ export default function Home() {
       <CanaisDeAjuda />
       <SectionMitosEVerdades />
       <SinaisDeAlerta />
+      <HistoriasDeSuperacao />
     </>
   );
 }
