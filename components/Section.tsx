@@ -4,18 +4,32 @@ type sectionProps = {
   title: string;
   description?: string;
   className?: string;
+  descriptionClassName?: string;
   children: React.ReactNode;
 };
 
-function Section({ children, title, description,className }: sectionProps) {
+function Section({
+  children,
+  title,
+  description,
+  className,
+  descriptionClassName,
+}: sectionProps) {
   return (
-    <section className={cn('py-16 md:py-24 bg-background', className )}>
+    <section className={cn("py-16 md:py-24 bg-background", className)}>
       <div className="container">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-5">
           {title}
         </h2>
         {description && (
-          <p className="text-muted-foreground text-center">{description}</p>
+          <p
+            className={cn(
+              "text-muted-foreground text-center",
+              descriptionClassName
+            )}
+          >
+            {description}
+          </p>
         )}
 
         {children}
