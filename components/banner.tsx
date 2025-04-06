@@ -1,36 +1,86 @@
-import { Button } from "./ui/button";
+"use client";
+import { cn } from "@/lib/utils";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
-function Banner() {
+export type BannerProps = {
+  title: JSX.Element;
+  description?: string;
+  buttons?: JSX.Element;
+  height?: string;
+  titleSize?: string;
+  descriptionSize?: string;
+  containerClassName?: string;
+  voltarParaHome?: boolean;
+  titleClassName?: string;
+  descriptionClassName?: string;
+  buttonsWrapperClassName?: string;
+  className?: string;
+};
+
+export function Banner({
+  title,
+  description,
+  buttons,
+  height = "py-24",
+  titleSize = "text-4xl md:text-6xl",
+  descriptionSize = "text-xl md:text-xl",
+  voltarParaHome = false,
+  containerClassName,
+  titleClassName,
+  descriptionClassName,
+
+  className,
+}: BannerProps) {
   return (
-    <section className="w-full  bg-purple-900/90 py-24  text-white shadow-inner">
-      <div className="container px-4 md:px-6 mx-auto relative z-10">
+    <section
+      className={cn(
+        "w-full bg-purple-900/90 text-white shadow-inner",
+        height,
+        className
+      )}
+    >
+      <div
+        className={cn(
+          "container px-4 md:px-6 mx-auto relative z-10",
+          containerClassName
+        )}
+      >
         <div className="flex flex-col items-center text-center space-y-6">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
-            Juntos Contra a Violência
+          {voltarParaHome && (
+            <Link href="/" className="flex itens-center gap-3 hover:underline">
+              {" "}
+              <span>
+                <ArrowLeft width={20} />
+              </span>
+              Voltar para a página inicial
+            </Link>
+          )}
+          <h1
+            className={cn(
+              titleSize,
+              "font-bold tracking-tighter",
+              titleClassName
+            )}
+          >
+            {title}
           </h1>
-          <p className="text-xl md:text-xl max-w-[700px] text-purple-100">
-            Toda mulher tem direito a uma vida livre de violência. Informação é
-            o primeiro passo para a mudança.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <Button
-              size="lg"
-              className="bg-white text-purple-900 hover:bg-purple-100"
+
+          {description && (
+            <p
+              className={cn(
+                descriptionSize,
+                "max-w-[700px] text-purple-100",
+                descriptionClassName
+              )}
             >
-              Preciso de Ajuda
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-white border-white bg-transparent hover:bg-purple-800 hover:text-white"
-            >
-              Como Apoiar
-            </Button>
-          </div>
+              {description}
+            </p>
+          )}
+
+          {buttons && <div>{buttons}</div>}
         </div>
       </div>
     </section>
   );
 }
-
-export default Banner;
