@@ -9,9 +9,9 @@ function SectionTiposDeViolencia() {
     <Section
       description="A violência contra a mulher se manifesta de diversas formas, muitas vezes sutis e normalizadas pela sociedade."
       title="Reconheça os Tipos de Violência"
-      className="bg-gray-100"
+      className="bg-purple-50 "
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
