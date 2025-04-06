@@ -54,7 +54,10 @@ function NavBar() {
             ))}
           </ul>
         </nav>
-        <Button className="hidden md:flex bg-purple-600">Dashboard</Button>
+        <Button className="hidden md:flex bg-purple-600 hover:bg-purple-700">
+          <Link href="/denunciar">Denunciar</Link>
+        </Button>
+
         <div className="flex items-center gap-5 md:hidden">
           <Sheet>
             <SheetTrigger asChild>
@@ -75,7 +78,9 @@ function NavBar() {
                   ))}
                 </ul>
               </nav>
-              <Button className=" bg-purple-600 hover:bg-purple-700">Dashboard</Button>
+              <Button className=" bg-purple-600 hover:bg-purple-700">
+                <Link href="/denunciar">Denunciar</Link>
+              </Button>
             </SheetContent>
           </Sheet>
         </div>
