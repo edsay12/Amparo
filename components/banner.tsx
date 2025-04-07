@@ -1,5 +1,7 @@
 "use client";
+
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -18,6 +20,19 @@ export type BannerProps = {
   className?: string;
 };
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.3,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
+};
+
 export function Banner({
   title,
   description,
@@ -29,7 +44,7 @@ export function Banner({
   containerClassName,
   titleClassName,
   descriptionClassName,
-
+  buttonsWrapperClassName,
   className,
 }: BannerProps) {
   return (
@@ -46,40 +61,60 @@ export function Banner({
           containerClassName
         )}
       >
-        <div className="flex flex-col items-center text-center space-y-6">
+        <motion.div
+          className="flex flex-col items-center text-center space-y-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           {voltarParaHome && (
-            <Link href="/" className="flex itens-center gap-3 hover:underline">
-              {" "}
-              <span>
+            <motion.div variants={fadeUp}>
+              <Link
+                href="/"
+                className="flex items-center gap-3 hover:underline"
+              >
                 <ArrowLeft width={20} />
-              </span>
-              Voltar para a página inicial
-            </Link>
+                Voltar para a página inicial
+              </Link>
+            </motion.div>
           )}
-          <h1
+
+          <motion.h1
             className={cn(
               titleSize,
               "font-bold tracking-tighter",
               titleClassName
             )}
+            variants={fadeUp}
+            custom={0}
           >
             {title}
-          </h1>
+          </motion.h1>
 
           {description && (
-            <p
+            <motion.p
               className={cn(
                 descriptionSize,
                 "max-w-[700px] text-purple-100",
                 descriptionClassName
               )}
+              variants={fadeUp}
+              custom={1}
             >
               {description}
-            </p>
+            </motion.p>
           )}
 
-          {buttons && <div>{buttons}</div>}
-        </div>
+          {buttons && (
+            <motion.div
+              variants={fadeUp}
+              custom={2}
+              className={buttonsWrapperClassName}
+            >
+              {buttons}
+            </motion.div>
+          )}
+        </motion.div>
       </div>
     </section>
   );
