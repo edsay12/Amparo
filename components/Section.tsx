@@ -1,6 +1,10 @@
-import { cn } from "@/lib/utils";
+"use client";
 
-type sectionProps = {
+import { fadeUp } from "@/lib/animation/animations";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+
+type SectionProps = {
   title: string;
   description?: string;
   className?: string;
@@ -14,26 +18,38 @@ function Section({
   description,
   className,
   descriptionClassName,
-}: sectionProps) {
+}: SectionProps) {
   return (
     <section className={cn("py-16 md:py-24 bg-background", className)}>
-      <div className="container">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-5">
+      <motion.div
+        className="container"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-center mb-5"
+          variants={fadeUp}
+          custom={0}
+        >
           {title}
-        </h2>
+        </motion.h2>
+
         {description && (
-          <p
+          <motion.p
             className={cn(
               "text-muted-foreground text-center",
               descriptionClassName
             )}
+            variants={fadeUp}
+            custom={1}
           >
             {description}
-          </p>
+          </motion.p>
         )}
 
         {children}
-      </div>
+      </motion.div>
     </section>
   );
 }

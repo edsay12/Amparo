@@ -1,5 +1,6 @@
 "use client";
 
+import { fadeUp } from "@/lib/animation/animations";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
@@ -20,18 +21,7 @@ export type BannerProps = {
   className?: string;
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.3,
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  }),
-};
+
 
 export function Banner({
   title,
