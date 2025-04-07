@@ -1,6 +1,6 @@
 import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
-import { Phone, PhoneCall } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 
 function SectionOndeBuscarAjuda() {
   return (

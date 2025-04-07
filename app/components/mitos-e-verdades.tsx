@@ -11,7 +11,12 @@ import {
 import { cardVariants } from "@/lib/animation/animations";
 import { motion } from "framer-motion";
 
-const MitoCard = ({ description, content }: any) => (
+type CardProps = {
+  description: string;
+  content: string;
+};
+
+const MitoCard = ({ description, content }: CardProps) => (
   <motion.div
     className="h-full"
     variants={cardVariants}
@@ -38,7 +43,7 @@ const MitoCard = ({ description, content }: any) => (
   </motion.div>
 );
 
-const VerdadeCard = ({ description, content }: any) => (
+const VerdadeCard = ({ description, content }:CardProps) => (
   <motion.div
     className="h-full"
     variants={cardVariants}

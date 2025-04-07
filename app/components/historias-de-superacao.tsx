@@ -13,7 +13,9 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Image from "next/image";
-import useEmblaCarousel from "embla-carousel-react";
+import { motion } from "framer-motion";
+import { fadeUp } from "@/lib/animation/animations";
+
 import Autoplay from "embla-carousel-autoplay";
 import { Testimonial, testimonials } from "@/lib/constants/testimonials";
 import { useRef } from "react";
@@ -55,29 +57,38 @@ const CarouselTestimonialCard = ({
   image,
 }: Testimonial) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center justify-center mb-4">
-          <Image
-            src={image}
-            className="w-20 h-20 rounded-full object-cover"
-            alt="mulher olhando morena  com olhos fechado sorringo"
-          ></Image>
-        </CardTitle>
-        <CardDescription className="text-center">
-          <h3 className="text-black font-medium">{name}</h3>
-          <span>{location}</span>
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="w-full border-l-4 border-purple-300 p-4">
-          <p className="text-muted-foreground text-sm">{quote}</p>
-        </div>
-        <p className="font-light text-muted-foreground text-sm mt-5">
-          {description}
-        </p>
-      </CardContent>
-    </Card>
+    <motion.div
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <Card className="h-full">
+        <CardHeader>
+          <CardTitle className="flex items-center justify-center mb-4">
+            <Image
+              src={image}
+              className="w-20 h-20 rounded-full object-cover"
+              alt={`Foto de ${name}`}
+            />
+          </CardTitle>
+          <CardDescription className="text-center">
+            <h3 className="text-black font-medium">{name}</h3>
+            <span>{location}</span>
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="w-full border-l-4 border-purple-300 p-4">
+            <p className="text-muted-foreground text-sm">{quote}</p>
+          </div>
+          <p className="font-light text-muted-foreground text-sm mt-5">
+            {description}
+          </p>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 
