@@ -8,7 +8,7 @@ function SectionOndeBuscarAjuda() {
       title="Onde Buscar Ajuda"
       description="Encontre os serviços de apoio mais próximos de você"
     >
-      <div className="flex w-full  md:flex-row gap-2 bg-purple-50 p-5 mt-12">
+      <div className="flex w-full flex-col  md:flex-row gap-2 bg-purple-50 p-5 mt-12 ">
         <div className="space-y-4 w-full">
           <div className="space-y-2">
             <h4>Mapa de Serviços</h4>
@@ -44,7 +44,7 @@ function SectionOndeBuscarAjuda() {
           </div>
         </div>
 
-        <div className="flex-1 p-5 min-h-[300px]">
+        <div className="flex-1 md:p-5 pt-5 md:pt-0 min-h-[300px]">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d75168.58778350841!2d-34.90848642667724!3d-8.043984238786006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab197aed31e8b1%3A0xfc286bacd8a1d143!2sDepartamento%20De%20Pol%C3%ADcia%20Da%20Mulher!5e0!3m2!1spt-BR!2sbr!4v1743984633398!5m2!1spt-BR!2sbr"
             width="600"
