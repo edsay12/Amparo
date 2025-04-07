@@ -143,6 +143,7 @@ function LegistacaoDeProtecao() {
             </div>
           </CardContent>
         </Card>
+        
       </div>
     </Section>
   );
