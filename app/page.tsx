@@ -1,4 +1,6 @@
 import CanaisDeAjuda from "./components/canais-de-ajuda";
+import HomeFooter from "./components/footer";
+import Footer from "./components/footer";
 import HistoriasDeSuperacao from "./components/historias-de-superacao";
 import HomeBanner from "./components/home-banner";
 import LegistacaoDeProtecao from "./components/legistacao-de-protecao";
@@ -22,6 +24,7 @@ export default function Home() {
       <LegistacaoDeProtecao />
       <SectionOndeBuscarAjuda/>
       <SectionParceitosEApoiadores />
+      <HomeFooter />
     </>
   );
 }
