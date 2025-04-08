@@ -10,7 +10,7 @@ function FormasDeViolencia() {
   return (
     <Section
       title="Formas de Violência Reconhecidas pela Lei Maria da Penha"
-      className="md:py-0"
+      className="md:py-0 md:pb-20"
     >
       <div className="flex flex-col gap-5 mt-12">
         {formasDeViolencia.map((forma, i) => (

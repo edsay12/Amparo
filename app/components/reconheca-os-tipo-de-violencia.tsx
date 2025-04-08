@@ -3,7 +3,7 @@
 import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Frown, Shield, Users } from "lucide-react";
+import { ArrowRight} from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { tiposDeVeiolencia } from "@/lib/constants/tiposDeViolencia";
