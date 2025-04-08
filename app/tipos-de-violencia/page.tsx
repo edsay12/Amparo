@@ -1,3 +1,4 @@
+import TipoVIolenciaFooter from "./components/footer";
 import FormasDeViolencia from "./components/formas-de-violencia";
 import InformacaoInicial from "./components/informacao-inicial";
 import OndeBuscarAjuda from "./components/onde-buscar-ajuda";
@@ -12,6 +13,7 @@ function TiposDeViolencia() {
       <FormasDeViolencia/>
       <OutrasFormasDeViolencia />
       <OndeBuscarAjuda />
+      <TipoVIolenciaFooter />
     </>
   );
 }
