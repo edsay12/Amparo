@@ -1,6 +1,7 @@
 import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { PhoneCall } from "lucide-react";
+import Link from "next/link";
 
 function SectionOndeBuscarAjuda() {
   return (
@@ -38,9 +39,14 @@ function SectionOndeBuscarAjuda() {
             </div>
           </div>
           <div>
-            <Button variant="default" className="mt-6">
-              Buscar local proximo
-            </Button>
+            <Link
+              target="_blank"
+              href={"https://maps.app.goo.gl/GXEexnUKcj41agcWA"}
+            >
+              <Button variant="default" className="mt-6">
+                Buscar local proximo
+              </Button>
+            </Link>
           </div>
         </div>
 

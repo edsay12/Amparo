@@ -21,8 +21,6 @@ export type BannerProps = {
   className?: string;
 };
 
-
-
 export function Banner({
   title,
   description,
@@ -59,10 +57,7 @@ export function Banner({
         >
           {voltarParaHome && (
             <motion.div variants={fadeUp}>
-              <Link
-                href="/"
-                className="flex items-center gap-3 hover:underline"
-              >
+              <Link href="/" className="flex items-center gap-3 hover:opacity-90">
                 <ArrowLeft width={20} />
                 Voltar para a página inicial
               </Link>

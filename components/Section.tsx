@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 type SectionProps = {
-  title: string;
+  title?: string;
   description?: string;
   className?: string;
   descriptionClassName?: string;
@@ -27,13 +27,15 @@ function Section({
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <motion.h2
-          className="text-3xl md:text-4xl font-bold text-center mb-5"
-          variants={fadeUp}
-          custom={0}
-        >
-          {title}
-        </motion.h2>
+        {title && (
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-center mb-5"
+            variants={fadeUp}
+            custom={0}
+          >
+            {title}
+          </motion.h2>
+        )}
 
         {description && (
           <motion.p

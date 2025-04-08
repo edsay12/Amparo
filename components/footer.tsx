@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "./ui/button";
+
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/animation/animations";
 
@@ -10,8 +10,6 @@ export type FooterProps = {
   description?: string;
   buttons?: JSX.Element;
 };
-
-
 
 function Footer({ title, description, buttons }: FooterProps) {
   return (
