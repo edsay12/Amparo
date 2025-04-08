@@ -38,7 +38,9 @@ function NavBar() {
     <header className="sticky top-0 z-50 w-full border-b bg-white backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="mr-4 flex">
-          <Logo />
+          <Link href="/">
+            <Logo />
+          </Link>
         </div>
         <nav className="hidden md:flex flex-1 items-center justify-center">
           <ul className="flex space-x-6">
