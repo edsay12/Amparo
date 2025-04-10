@@ -65,10 +65,12 @@ function SectionOndeBuscarAjuda() {
           Não encontrou um serviço próximo? Ligue para o 180 - Central de
           Atendimento à Mulher
         </p>
-        <Button variant="outline" className="mt-6 text-gray-900">
-          <PhoneCall className="h-5 w-5" />
-          Ligue 180 (Ligação Gratuita)
-        </Button>
+        <Link href="/onde-buscar-ajuda">
+          <Button variant="outline" className="mt-6 text-gray-900">
+            <PhoneCall className="h-5 w-5" />
+            Ligue 180 (Ligação Gratuita)
+          </Button>
+        </Link>
       </div>
     </Section>
   );
