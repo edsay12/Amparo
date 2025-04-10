@@ -49,7 +49,7 @@ function CanaisDeAjuda() {
                 os dias. Oferece orientação sobre direitos e serviços para
                 mulheres em situação de violência.
               </p>
-              <Link href="/saiba-mais">
+              <Link href="/ligue180">
                 <Button variant="secondary" className="w-full text-purple-900">
                   Saiba mais sobre o serviço
                 </Button>

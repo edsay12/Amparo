@@ -57,7 +57,7 @@ function NavBar() {
           </ul>
         </nav>
         <Button className="hidden md:flex bg-purple-600 hover:bg-purple-700">
-          <Link href="/denunciar">Denunciar</Link>
+          <Link href="/denunciar-violencia">Denunciar</Link>
         </Button>
 
         <div className="flex items-center gap-5 md:hidden">
