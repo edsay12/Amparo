@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 import {
   Select,
@@ -72,7 +71,6 @@ function FormularioDeCadastroDeDenuncia() {
     setSubmitted(true);
   };
 
-
   const nextStep = async () => {
     const fields = stepsSchema[formStep].fields;
     const output = await form.trigger(fields as FielName[], {
@@ -128,7 +126,7 @@ function FormularioDeCadastroDeDenuncia() {
                 </CardHeader>
                 <CardContent>
                   <Form {...form}>
-                    <form onSubmit={processForm} className="space-y-6">
+                    <form className="space-y-6">
                       {formStep === 0 && (
                         <div className="space-y-6">
                           <div className="space-y-2">
