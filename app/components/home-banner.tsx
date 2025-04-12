@@ -1,5 +1,6 @@
 import { Banner } from "@/components/banner";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 function HomeBanner() {
   return (
@@ -15,7 +16,7 @@ function HomeBanner() {
               size="lg"
               className="bg-white text-purple-900 hover:bg-purple-100"
             >
-              Preciso de Ajuda
+              <Link href={"/denunciar-violencia"}>Preciso de Ajuda</Link>
             </Button>
             <Button
               size="lg"

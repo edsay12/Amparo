@@ -9,7 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 const menuItens = [
   {
     name: "Início",
-    href: "/",
+    href: "/#inicio",
   },
   {
     name: "Sobre",
@@ -24,12 +24,13 @@ const menuItens = [
     href: "#ajuda",
   },
   {
-    name: "Legislação",
-    href: "#legislacao",
+    name: "Mapa de Serviços",
+    href: "#onde",
   },
+
   {
-    name: "Contato",
-    href: "#contato",
+    name: "Parceiros",
+    href: "#parceiros",
   },
 ];
 

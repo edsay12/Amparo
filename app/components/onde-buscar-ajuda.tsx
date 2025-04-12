@@ -8,6 +8,7 @@ function SectionOndeBuscarAjuda() {
     <Section
       title="Onde Buscar Ajuda"
       description="Encontre os serviços de apoio mais próximos de você"
+      id="onde"
     >
       <div className="flex w-full flex-col  md:flex-row gap-2 bg-purple-50 p-5 mt-12 ">
         <div className="space-y-4 w-full">
@@ -65,7 +66,7 @@ function SectionOndeBuscarAjuda() {
           Não encontrou um serviço próximo? Ligue para o 180 - Central de
           Atendimento à Mulher
         </p>
-        <Link href="/onde-buscar-ajuda">
+        <Link href="/ligue180">
           <Button variant="outline" className="mt-6 text-gray-900">
             <PhoneCall className="h-5 w-5" />
             Ligue 180 (Ligação Gratuita)

@@ -10,7 +10,8 @@ type SectionProps = {
   className?: string;
   descriptionClassName?: string;
   children: React.ReactNode;
-};
+  props?: React.HTMLAttributes<HTMLDivElement>;
+} & React.HTMLAttributes<HTMLDivElement>;
 
 function Section({
   children,
@@ -18,9 +19,13 @@ function Section({
   description,
   className,
   descriptionClassName,
+  ...props
 }: SectionProps) {
   return (
-    <section className={cn("py-16 md:py-24 bg-background", className)}>
+    <section
+      className={cn("py-16 md:py-24 bg-background", className)}
+      {...props}
+    >
       <motion.div
         className="container"
         initial="hidden"

@@ -24,7 +24,7 @@ function separarNumero(texto: string) {
 
 function SectionRealidadeEmNumeros() {
   return (
-    <Section title="A Realidade em Números" className="">
+    <Section title="A Realidade em Números" id="sobre">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
         {realidadeEmNumeros.map((card, index) => {
           const { numero, textoExtra } = separarNumero(card.title);

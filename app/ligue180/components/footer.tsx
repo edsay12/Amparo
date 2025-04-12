@@ -14,7 +14,7 @@ primeiro passo para se proteger."
       buttons={
         <div className="flex items-center gap-4">
           <Button variant={"secondary"} className="text-purple-800 ">
-            Ligue 180
+            <a href="tel:180">Ligue 180</a>
           </Button>
           <Button
             variant={"secondary"}

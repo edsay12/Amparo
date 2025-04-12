@@ -23,23 +23,68 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { fadeInRight } from "@/lib/animation/animations";
-
+import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertTriangle, Info } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { denunciarViolenciaSchema } from "@/lib/schemas";
+import { z } from "zod";
 
+const stepsSchema = [
+  {
+    fields: ["nome", "email", "telefone", "cidade", "aceitoSerContactado"],
+  },
+  {
+    fields: ["tipoViolencia", "local", "data", "hora", "frequencia"],
+  },
+  {
+    fields: [
+      "descricao",
+      "agressor",
+      "testemunhas",
+      "evidencias",
+      "veracidade",
+    ],
+  },
+];
+
+type FielName = keyof z.infer<typeof denunciarViolenciaSchema>;
 function FormularioDeCadastroDeDenuncia() {
-  const [formStep, setFormStep] = useState(1);
+  const [formStep, setFormStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Aqui seria implementada a lógica de envio do formulário
+  const form = useForm({
+    resolver: zodResolver(denunciarViolenciaSchema),
+    mode: "onChange",
+  });
+  const processForm = (data: z.infer<typeof denunciarViolenciaSchema>) => {
+    console.log(data);
     setSubmitted(true);
   };
 
-  const nextStep = () => {
+
+  const nextStep = async () => {
+    const fields = stepsSchema[formStep].fields;
+    const output = await form.trigger(fields as FielName[], {
+      shouldFocus: true,
+    });
+    if (!output) return;
+
+    if (formStep == 2) {
+      {
+        await form.handleSubmit(processForm)();
+      }
+    }
     setFormStep(formStep + 1);
   };
 
@@ -82,256 +127,404 @@ function FormularioDeCadastroDeDenuncia() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    {formStep === 1 && (
-                      <div className="space-y-6">
-                        <div className="space-y-2">
-                          <h3 className="text-lg font-medium">
-                            Informações da Denunciante
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            Você pode fazer uma denúncia anônima ou se
-                            identificar.
-                          </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Form {...form}>
+                    <form onSubmit={processForm} className="space-y-6">
+                      {formStep === 0 && (
+                        <div className="space-y-6">
                           <div className="space-y-2">
-                            <Label htmlFor="nome">Nome completo</Label>
-                            <Input id="nome" placeholder="Seu nome completo" />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="email">E-mail</Label>
-                            <Input
-                              id="email"
-                              type="email"
-                              placeholder="seu.email@exemplo.com"
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="telefone">Telefone *</Label>
-                            <Input
-                              id="telefone"
-                              placeholder="(00) 00000-0000"
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="cidade">Cidade/Estado</Label>
-                            <Input
-                              id="cidade"
-                              placeholder="Sua cidade e estado"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-2">
-                          <div className="flex items-center space-x-2">
-                            <Checkbox id="contato" />
-                            <Label htmlFor="contato" className="text-sm">
-                              Autorizo ser contatada para mais informações sobre
-                              esta denúncia
-                            </Label>
-                          </div>
-                        </div>
-
-                        <div className="flex justify-end">
-                          <Button type="button" onClick={nextStep}>
-                            Próximo
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-
-                    {formStep === 2 && (
-                      <div className="space-y-6">
-                        <div className="space-y-2">
-                          <h3 className="text-lg font-medium">
-                            Informações da Ocorrência
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            Forneça detalhes sobre o ocorrido para que possamos
-                            encaminhar sua denúncia adequadamente.
-                          </p>
-                        </div>
-
-                        <div className="space-y-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="tipo-violencia">
-                              Tipo de violência*
-                            </Label>
-                            <Select>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Selecione o tipo de violência" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="fisica">
-                                  Violência Física
-                                </SelectItem>
-                                <SelectItem value="psicologica">
-                                  Violência Psicológica
-                                </SelectItem>
-                                <SelectItem value="sexual">
-                                  Violência Sexual
-                                </SelectItem>
-                                <SelectItem value="patrimonial">
-                                  Violência Patrimonial
-                                </SelectItem>
-                                <SelectItem value="moral">
-                                  Violência Moral
-                                </SelectItem>
-                                <SelectItem value="digital">
-                                  Violência Digital
-                                </SelectItem>
-                                <SelectItem value="institucional">
-                                  Violência Institucional
-                                </SelectItem>
-                                <SelectItem value="outra">
-                                  Outro tipo
-                                </SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="local">Local da ocorrência*</Label>
-                            <Input
-                              id="local"
-                              placeholder="Endereço ou referência do local"
-                            />
+                            <h3 className="text-lg font-medium">
+                              Informações da Denunciante
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              Você pode fazer uma denúncia anônima ou se
+                              identificar.
+                            </p>
                           </div>
 
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="data">Data da ocorrência</Label>
-                              <Input id="data" type="date" />
+                            <FormField
+                              control={form.control}
+                              name="nome"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Nome Completo</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name="email"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Email</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="telefone"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Telefone *</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="cidade"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Cidade</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <div className="flex items-center space-x-2">
+                              <FormField
+                                control={form.control}
+                                name="aceitoSerContactado"
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                      />
+                                    </FormControl>
+                                    <div className="space-y-1 leading-none">
+                                      <FormLabel>
+                                        Aceito ser contactado para mais
+                                        informações
+                                      </FormLabel>
+                                    </div>
+                                  </FormItem>
+                                )}
+                              />
                             </div>
-                            <div className="space-y-2">
-                              <Label htmlFor="hora">Hora aproximada</Label>
-                              <Input id="hora" type="time" />
-                            </div>
                           </div>
 
-                          <div className="space-y-2">
-                            <Label htmlFor="frequencia">Frequência</Label>
-                            <Select>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Selecione a frequência" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="unica">
-                                  Ocorrência única
-                                </SelectItem>
-                                <SelectItem value="ocasional">
-                                  Ocasional
-                                </SelectItem>
-                                <SelectItem value="frequente">
-                                  Frequente
-                                </SelectItem>
-                                <SelectItem value="diaria">Diária</SelectItem>
-                              </SelectContent>
-                            </Select>
+                          <div className="flex justify-end">
+                            <Button type="button" onClick={nextStep}>
+                              Próximo
+                            </Button>
                           </div>
                         </div>
+                      )}
 
-                        <div className="flex justify-between">
-                          <Button
-                            type="button"
-                            variant="outline"
-                            onClick={prevStep}
-                          >
-                            Voltar
-                          </Button>
-                          <Button type="button" onClick={nextStep}>
-                            Próximo
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-
-                    {formStep === 3 && (
-                      <div className="space-y-6">
-                        <div className="space-y-2">
-                          <h3 className="text-lg font-medium">
-                            Detalhes da Denúncia
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            Descreva o ocorrido com o máximo de detalhes
-                            possível. Estas informações são essenciais para a
-                            investigação.
-                          </p>
-                        </div>
-
-                        <div className="space-y-4">
+                      {formStep === 1 && (
+                        <div className="space-y-6">
                           <div className="space-y-2">
-                            <Label htmlFor="descricao">
-                              Descrição detalhada do ocorrido*
-                            </Label>
-                            <Textarea
-                              id="descricao"
-                              placeholder="Descreva o que aconteceu, incluindo detalhes relevantes"
-                              className="min-h-[150px]"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="agressor">
-                              Informações sobre o(a) agressor(a) (se souber)
-                            </Label>
-                            <Textarea
-                              id="agressor"
-                              placeholder="Nome, características físicas, relação com a vítima, etc."
-                              className="min-h-[100px]"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="testemunhas">
-                              Testemunhas (se houver)
-                            </Label>
-                            <Textarea
-                              id="testemunhas"
-                              placeholder="Nomes e contatos de possíveis testemunhas"
-                              className="min-h-[80px]"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="evidencias">Evidências</Label>
-                            <p className="text-xs text-muted-foreground mb-2">
-                              Descreva se existem evidências como fotos, vídeos,
-                              mensagens, laudos médicos, etc.
+                            <h3 className="text-lg font-medium">
+                              Informações da Ocorrência
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              Forneça detalhes sobre o ocorrido para que
+                              possamos encaminhar sua denúncia adequadamente.
                             </p>
-                            <Textarea
-                              id="evidencias"
-                              placeholder="Descreva as evidências disponíveis"
-                              className="min-h-[80px]"
+                          </div>
+
+                          <div className="space-y-4">
+                            <FormField
+                              control={form.control}
+                              name="tipoViolencia"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Tipo de Violência *</FormLabel>
+                                  <FormControl>
+                                    <Select
+                                      onValueChange={field.onChange}
+                                      value={field.value}
+                                      defaultValue={field.value}
+                                    >
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Selecione o tipo de violência" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        <SelectItem value="fisica">
+                                          Violência Física
+                                        </SelectItem>
+                                        <SelectItem value="psicologica">
+                                          Violência Psicológica
+                                        </SelectItem>
+                                        <SelectItem value="sexual">
+                                          Violência Sexual
+                                        </SelectItem>
+                                        <SelectItem value="patrimonial">
+                                          Violência Patrimonial
+                                        </SelectItem>
+                                        <SelectItem value="moral">
+                                          Violência Moral
+                                        </SelectItem>
+                                        <SelectItem value="digital">
+                                          Violência Digital
+                                        </SelectItem>
+                                        <SelectItem value="institucional">
+                                          Violência Institucional
+                                        </SelectItem>
+                                        <SelectItem value="outra">
+                                          Outro tipo
+                                        </SelectItem>
+                                      </SelectContent>
+                                    </Select>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name="local"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Local da ocorrência *</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <FormField
+                                control={form.control}
+                                name="data"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Data da ocorrência *</FormLabel>
+                                    <FormControl>
+                                      <Input {...field} type="date" />
+                                    </FormControl>
+
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <FormField
+                                control={form.control}
+                                name="hora"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Hora aproximada</FormLabel>
+                                    <FormControl>
+                                      <Input {...field} type="date" />
+                                    </FormControl>
+
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+
+                            <FormField
+                              control={form.control}
+                              name="frequencia"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Frequencia</FormLabel>
+                                  <FormControl>
+                                    <Select
+                                      onValueChange={field.onChange}
+                                      value={field.value}
+                                      defaultValue={field.value}
+                                    >
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Selecione a frequência" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        <SelectItem value="unica">
+                                          Ocorrência única
+                                        </SelectItem>
+                                        <SelectItem value="ocasional">
+                                          Ocasional
+                                        </SelectItem>
+                                        <SelectItem value="frequente">
+                                          Frequente
+                                        </SelectItem>
+                                        <SelectItem value="diaria">
+                                          Diária
+                                        </SelectItem>
+                                      </SelectContent>
+                                    </Select>
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
                             />
                           </div>
-                        </div>
 
-                        <div className="space-y-2">
-                          <div className="flex items-center space-x-2">
-                            <Checkbox id="veracidade" required />
-                            <Label htmlFor="veracidade" className="text-sm">
-                              Declaro que as informações fornecidas são
-                              verdadeiras*
-                            </Label>
+                          <div className="flex justify-between">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              onClick={prevStep}
+                            >
+                              Voltar
+                            </Button>
+                            <Button type="button" onClick={nextStep}>
+                              Próximo
+                            </Button>
                           </div>
                         </div>
+                      )}
 
-                        <div className="flex justify-between">
-                          <Button
-                            type="button"
-                            variant="outline"
-                            onClick={prevStep}
-                          >
-                            Voltar
-                          </Button>
-                          <Button type="submit">Enviar Denúncia</Button>
+                      {formStep === 2 && (
+                        <div className="space-y-6">
+                          <div className="space-y-2">
+                            <h3 className="text-lg font-medium">
+                              Detalhes da Denúncia
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              Descreva o ocorrido com o máximo de detalhes
+                              possível. Estas informações são essenciais para a
+                              investigação.
+                            </p>
+                          </div>
+
+                          <div className="space-y-4">
+                            <FormField
+                              control={form.control}
+                              name="descricao"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Descrição detalhada do ocorrido *
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Textarea
+                                      {...field}
+                                      className="min-h-[100px]"
+                                    />
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name="agressor"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Informações sobre o(a) agressor(a) (se
+                                    souber)
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Textarea
+                                      {...field}
+                                      className="min-h-[100px]"
+                                    />
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name="testemunhas"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Testemunhas (se houver)</FormLabel>
+                                  <FormControl>
+                                    <Textarea
+                                      {...field}
+                                      className="min-h-[100px]"
+                                    />
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name="evidencias"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Evidencias</FormLabel>
+                                  <FormControl>
+                                    <Textarea
+                                      {...field}
+                                      className="min-h-[100px]"
+                                    />
+                                  </FormControl>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+
+                          <FormField
+                            control={form.control}
+                            name="veracidade"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel>
+                                    Voce deve confirmar a veracidade das
+                                    informações
+                                  </FormLabel>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+
+                          <div className="flex justify-between">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              onClick={prevStep}
+                            >
+                              Voltar
+                            </Button>
+                            <Button type="button" onClick={nextStep}>
+                              {formStep && formStep == 2
+                                ? "Próximo"
+                                : "Enviar denúncia"}
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </form>
+                      )}
+                    </form>
+                  </Form>
                 </CardContent>
               </Card>
             ) : (

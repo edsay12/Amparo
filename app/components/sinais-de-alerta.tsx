@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { container, stifiness } from "@/lib/animation/animations";
+import { container, fadeUp, stifiness } from "@/lib/animation/animations";
 import { sinais } from "@/lib/constants/sinais";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -56,7 +56,10 @@ function SinaisDeAlerta() {
         ))}
       </motion.div>
 
-      <div className="flex itens-center justify-center mt-12">
+      <motion.div
+        className="flex itens-center justify-center mt-12"
+        variants={fadeUp}
+      >
         <Link href="/teste" className="">
           <Button
             variant="secondary"
@@ -65,7 +68,7 @@ function SinaisDeAlerta() {
             Faça o teste: Você se sente uma situação de abuso?
           </Button>
         </Link>
-      </div>
+      </motion.div>
     </Section>
   );
 }

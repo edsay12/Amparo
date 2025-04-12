@@ -16,7 +16,7 @@ import { fadeInLeft, fadeInRight } from "@/lib/animation/animations";
 
 function CanaisDeAjuda() {
   return (
-    <Section title="Canais de Ajuda">
+    <Section title="Canais de Ajuda" id="ajuda">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 auto-rows-fr">
         <motion.div
           className="h-full"

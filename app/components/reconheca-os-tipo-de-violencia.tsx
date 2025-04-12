@@ -18,6 +18,7 @@ function SectionTiposDeViolencia() {
       description="A violência contra a mulher se manifesta de diversas formas, muitas vezes sutis e normalizadas pela sociedade."
       title="Reconheça os Tipos de Violência"
       className="bg-purple-50"
+      id="tipos"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
         {tiposDeVeiolencia && tiposDeVeiolencia.map((card, index) => (

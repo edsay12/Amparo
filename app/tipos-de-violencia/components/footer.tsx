@@ -3,10 +3,9 @@ import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-
 function TipoVIolenciaFooter() {
-    const router = useRouter();
-    
+  const router = useRouter();
+
   return (
     <Footer
       title="Não se cale. Você não está sozinha."
@@ -15,9 +14,13 @@ primeiro passo para se proteger."
       buttons={
         <div className="flex items-center gap-4">
           <Button variant={"secondary"} className="text-purple-800 ">
-            Ligue 180
+            <a href="tel:180">Ligue 180</a>
           </Button>
-          <Button variant={"secondary"} className="text-purple-800 " onClick={() => router.push("/")}>
+          <Button
+            variant={"secondary"}
+            className="text-purple-800 "
+            onClick={() => router.push("/")}
+          >
             Voltar a pagina principal
           </Button>
         </div>

@@ -22,6 +22,7 @@ function SectionParceitosEApoiadores() {
     <Section
       title="Parceiros e Apoiadores"
       description="Organizações que trabalham no combate à violência contra a mulher"
+      id="parceiros"
     >
       <div className="grid grid-cols-2 md:grid-cols-4  gap-8 mt-12">
         {apoiadores.map((apoio, i) => (

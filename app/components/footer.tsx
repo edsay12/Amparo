@@ -1,5 +1,6 @@
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 function HomeFooter() {
   return (
@@ -9,9 +10,11 @@ function HomeFooter() {
 as vítimas e ajude a construir uma sociedade livre de violência contra a mulher.`}
       buttons={
         <>
-          <Button variant={"secondary"} className="text-purple-800 ">
-            Voluntariar-se
-          </Button>
+          <Link href="/denunciar-violencia">
+            <Button variant={"secondary"} className="text-purple-800 ">
+              Denuncie
+            </Button>
+          </Link>
         </>
       }
     ></Footer>
