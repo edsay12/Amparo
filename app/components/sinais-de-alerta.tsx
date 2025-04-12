@@ -1,6 +1,7 @@
 "use client";
 
 import Section from "@/components/Section";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,6 +12,7 @@ import {
 import { container, stifiness } from "@/lib/animation/animations";
 import { sinais } from "@/lib/constants/sinais";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 function SinaisDeAlerta() {
   return (
@@ -53,6 +55,17 @@ function SinaisDeAlerta() {
           </motion.div>
         ))}
       </motion.div>
+
+      <div className="flex itens-center justify-center mt-12">
+        <Link href="/teste" className="">
+          <Button
+            variant="secondary"
+            className=" bg-purple-800 text-white hover:bg-purple-900"
+          >
+            Faça o teste: Você se sente uma situação de abuso?
+          </Button>
+        </Link>
+      </div>
     </Section>
   );
 }

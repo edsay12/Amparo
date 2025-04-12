@@ -41,12 +41,10 @@ function FormularioDeCadastroDeDenuncia() {
 
   const nextStep = () => {
     setFormStep(formStep + 1);
-    window.scrollTo(0, 0);
   };
 
   const prevStep = () => {
     setFormStep(formStep - 1);
-    window.scrollTo(0, 0);
   };
 
   return (
