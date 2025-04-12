@@ -1,20 +1,10 @@
 "use client";
 import Section from "@/components/Section";
 import SobreoQuestionario from "./sobre-o-questionario";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+
 import { useEffect, useState } from "react";
 import { perguntas } from "@/lib/constants/perguntas";
 import { resultados } from "@/lib/constants/resultados";
-import { Progress } from "@/components/ui/progress";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 
 import ResultadoDoQuestionario from "./questionario-resultado";
 import Questoes from "./questoes";
