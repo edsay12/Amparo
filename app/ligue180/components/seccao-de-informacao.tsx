@@ -998,7 +998,8 @@ function SeccaoDeInformacao() {
               size="lg"
               className="bg-purple-700 hover:bg-purple-800 gap-2"
             >
-              <PhoneCall className="h-5 w-5" /> Ligue 180
+              <PhoneCall className="h-5 w-5" /> 
+              <a href="tel:180">Ligue 180</a>
             </Button>
             <Link href="/denunciar-violencia">
               <Button

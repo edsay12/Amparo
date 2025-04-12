@@ -3,25 +3,25 @@ import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-function DenunciaVIolenciaFooter() {
+function TesteViolenciaFooter() {
   const router = useRouter();
 
   return (
     <Footer
-      title="Não se cale. Você não está sozinha."
-      description="A violência contra a mulher é crime e pode ser denunciada. Conhecer seus direitos é o
-primeiro passo para se proteger."
+      title="Compartilhe este teste."
+      description="Ajude outras pessoas a identificarem sinais de alerta em seus relacionamentos.
+Compartilhar informação pode salvar vidas."
       buttons={
         <div className="flex items-center gap-4">
           <Button variant={"secondary"} className="text-purple-800 ">
-            <a href="tel:180">Ligue 180</a>
+            Compartilhar nas Redes Sociais
           </Button>
           <Button
             variant={"secondary"}
             className="text-purple-800 "
             onClick={() => router.push("/")}
           >
-            Voltar a pagina principal
+            Voltar para a página inicial
           </Button>
         </div>
       }
@@ -29,4 +29,4 @@ primeiro passo para se proteger."
   );
 }
 
-export default DenunciaVIolenciaFooter;
+export default TesteViolenciaFooter;

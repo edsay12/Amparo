@@ -1,4 +1,4 @@
-import Ligue180Banner from "./components/denunciar-violencia-banner";
+import Ligue180Banner from "./components/ligue180banner";
 import Ligue180Footer from "./components/footer";
 import SeccaoDeInformacao from "./components/seccao-de-informacao";
 
