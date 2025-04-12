@@ -3,6 +3,7 @@ import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { PhoneCall } from "lucide-react";
 import Link from "next/link";
+import { useTransition } from "react";
 
 import { useState } from "react";
 import { fetchDelegacias } from "@/lib/actions/getDelegacias.actions";
@@ -10,6 +11,7 @@ import Mapa from "@/components/mapa";
 
 function SectionOndeBuscarAjuda() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
+  const [loading, startTransition] = useTransition();
   const [delegacias, setDelegacias] = useState<any[]>([]);
   const [userLocation, setUserLocation] = useState<{
     lat: number;
@@ -94,13 +96,6 @@ function SectionOndeBuscarAjuda() {
             }}
             markers={delegacias}
           />
-
-          {/* <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d75168.58778350841!2d-34.90848642667724!3d-8.043984238786006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab197aed31e8b1%3A0xfc286bacd8a1d143!2sDepartamento%20De%20Pol%C3%ADcia%20Da%20Mulher!5e0!3m2!1spt-BR!2sbr!4v1743984633398!5m2!1spt-BR!2sbr"
-            width="600"
-            height="350"
-            loading="lazy"
-          ></iframe> */}
         </div>
       </div>
 

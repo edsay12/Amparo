@@ -7,7 +7,7 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { Pin } from "lucide-react";
+
 import { useState } from "react";
 
 const containerStyle = {
@@ -40,7 +40,7 @@ export default function Mapa({ center, markers, apiKey }: MapaProps) {
           label={{
             text: "Você",
             color: "white",
-            fontSize: "16px",
+            fontSize: "9px",
             fontWeight: "bold",
           }}
         />
