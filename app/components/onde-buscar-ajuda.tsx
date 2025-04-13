@@ -83,7 +83,7 @@ function SectionOndeBuscarAjuda() {
         </div>
 
         <div
-          className=" h-screen w-screen
+          className=" h-screen w-full
         "
         >
           <Mapa
