@@ -1,9 +1,9 @@
 "use client";
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { PhoneCall } from "lucide-react";
 import Link from "next/link";
-import { useTransition } from "react";
 
 import { useState } from "react";
 import { fetchDelegacias } from "@/lib/actions/getDelegacias.actions";
@@ -11,7 +11,6 @@ import Mapa from "@/components/mapa";
 
 function SectionOndeBuscarAjuda() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
-  const [loading, startTransition] = useTransition();
   const [delegacias, setDelegacias] = useState<any[]>([]);
   const [userLocation, setUserLocation] = useState<{
     lat: number;
@@ -26,7 +25,6 @@ function SectionOndeBuscarAjuda() {
           setUserLocation(userLoc);
 
           const resultado = await fetchDelegacias(latitude, longitude);
-          console.log(resultado);
           setDelegacias(resultado);
         },
         (error) => {

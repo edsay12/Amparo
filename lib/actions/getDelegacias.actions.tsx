@@ -1,10 +1,18 @@
 "use server";
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export async function fetchDelegacias(lat: number, lng: number) {
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
   const radius = 10000; // em metros
-  const tipoBusca = "police"; // ou usar `establishment` com filtros
   console.log(apiKey);
-  const resultados: any[] = [];
+
+  type resultado = {
+    tipo: string;
+    nome: string;
+    lat: number;
+    lng: number;
+  };
+
+  const resultados: resultado[] = [];
   const tiposBusca = [
     { tipo: "Delegacia", keyword: "delegacia da mulher" },
     { tipo: "Centro de Referência", keyword: "centro de referência mulher" },
