@@ -15,10 +15,10 @@ export default function Home() {
     <>
       <HomeBanner />
       <SectionRealidadeEmNumeros />
+      <SinaisDeAlerta />
       <SectionTiposDeViolencia />
       <CanaisDeAjuda />
       <SectionMitosEVerdades />
-      <SinaisDeAlerta />
       <HistoriasDeSuperacao />
       <LegistacaoDeProtecao />
       <SectionOndeBuscarAjuda />
