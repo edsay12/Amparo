@@ -26,7 +26,7 @@ class EntradaModelo(BaseModel):
 @app.post("/predict")
 def predict(dados: EntradaModelo):
     # Converte entrada JSON em dicionário
-    input_dict = dados.dict()
+    input_dict = dados.model_dump()
 
     # Renomeia os campos categóricos para ficarem no formato esperado do one-hot
     input_dict[f"CS_RACA_{input_dict.pop('CS_RACA')}"] = 1
@@ -47,6 +47,22 @@ def predict(dados: EntradaModelo):
     df = df[colunas_modelo]
 
     # Faz a predição
-    predicao = modelo.predict(df)
+    predicao = modelo.predict_proba(df)[0]
+    print("console",predicao)
 
-    return {"predicao": predicao[0]}  # REMOVIDO o int()
+    #Mapeamento das classes
+    classes = {
+        0: "fisica",
+        1: "nenhuma",
+        2: "outros",
+        3: "psicológica",
+    }
+    
+    resultado = {
+        classes[i]: round(float(prob * 100),2)
+        for i, prob in enumerate(predicao)
+    }
+
+    
+
+    return resultado
