@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { resultados } from "@/lib/constants/resultados";
-import { CheckCircle2, Heart, Link } from "lucide-react";
+import { Heart, Link } from "lucide-react";
 
 type resultadoDoQuestionarioProps = {
   score: number;
@@ -10,10 +10,11 @@ type resultadoDoQuestionarioProps = {
 };
 
 
-function ResultadoDoQuestionario({restartTest,resultCategory,score}: resultadoDoQuestionarioProps) {
+function ResultadoDoQuestionario({restartTest,predictedResults,score}: resultadoDoQuestionarioProps) {
+  console.log("Resultados:", predictedResults);
   return (
     <div className="space-y-8">
-      <Card className={`border ${resultCategory.color}`}>
+      <Card className={`border `}>
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4"><Heart/></div>
           <CardTitle className="text-2xl">Souu um teste</CardTitle>

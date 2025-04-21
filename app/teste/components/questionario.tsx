@@ -43,16 +43,14 @@ function Questionario() {
   };
 
   const nextQuestion = () => {
-    console.log(currentQuestion < perguntas.length - 1);
     if (currentQuestion < perguntas.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
-      console.log("Próximo pergunta:", perguntas[currentQuestion].question);
     } else {
       const totalScore = Object.values(answers).reduce(
         (sum, value) => sum + Number.parseInt(value),
         0
       );
-      console.log("Total de pontos:", totalScore);
+
       setScore(totalScore);
       fetchPrediction(answers);
       setShowResult(true);
@@ -135,7 +133,7 @@ function Questionario() {
       {showResult && predictedResults && (
         <ResultadoDoQuestionario
           score={score}
-          resultCategory={predictedResults}
+          predictedResults={predictedResults}
           restartTest={restartTest}
         />
       )}
