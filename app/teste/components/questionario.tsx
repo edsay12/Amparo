@@ -43,16 +43,19 @@ function Questionario() {
   };
 
   const nextQuestion = () => {
+    console.log(currentQuestion < perguntas.length - 1);
     if (currentQuestion < perguntas.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
+      console.log("Próximo pergunta:", perguntas[currentQuestion].question);
     } else {
       const totalScore = Object.values(answers).reduce(
         (sum, value) => sum + Number.parseInt(value),
         0
       );
+      console.log("Total de pontos:", totalScore);
       setScore(totalScore);
-
       fetchPrediction(answers);
+      setShowResult(true);
     }
   };
 
@@ -71,33 +74,45 @@ function Questionario() {
     setPredictedResults(null);
   };
 
-  const fetchPrediction = async (answers: Record<number, string>) => {
-    const data = {
-      ANO: 2023,  
-      NU_IDADE_N: 25, 
-      AUTOR_SEXO: 1, 
-      OUT_VEZES: 3,  
-      UF: 'SP',  
-      CS_RACA: 'Branca', 
-      CS_ESCOL_N: 'Superior', 
-      LOCAL_OCOR: 'Rua', 
-      TIPO_RELACAO: 'Familiar', 
+  const prepararDadosParaAPI = () => {
+    const dataNascimento = new Date(answers[1]);
+    const anoAtual = 2023;
+
+    const idade = anoAtual - dataNascimento.getFullYear();
+
+    const dadosAPI = {
+      ANO: 2023,
+      NU_IDADE_N: idade,
+      CS_RACA: answers[2],
+      LOCAL_OCOR: answers[3],
+      TIPO_RELACAO: answers[4],
+      AUTOR_SEXO: Number(answers[5]),
+      OUT_VEZES: Number(answers[6]),
+      CS_ESCOL_N: answers[7],
+      UF: "PE",
     };
 
+    return dadosAPI;
+  };
+
+  const fetchPrediction = async (answers: Record<number, string>) => {
+    const dados = prepararDadosParaAPI();
+    console.log("Dados para API:", dados);
+
     try {
-      const response = await fetch("/predict", {
+      const response = await fetch("http://localhost:8000/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dados),
       });
 
-      const result = await response.json();
-      setPredictedResults(result); 
-      setShowResult(true);
+      const resultado = await response.json();
+      console.log("Resultado da API:", resultado);
+      setPredictedResults(resultado);
     } catch (error) {
-      console.error("Erro ao fazer a requisição para a API:", error);
+      console.error("Erro ao enviar para API:", error);
     }
   };
 
@@ -116,11 +131,11 @@ function Questionario() {
         />
       )}
 
+      {/* Tem que mudar a logica desse componente */}
       {showResult && predictedResults && (
         <ResultadoDoQuestionario
-          predictedResults={predictedResults}
           score={score}
-          resultCategory={resultCategory}
+          resultCategory={predictedResults}
           restartTest={restartTest}
         />
       )}

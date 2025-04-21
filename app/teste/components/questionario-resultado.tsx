@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { resultados } from "@/lib/constants/resultados";
-import { CheckCircle2, Link } from "lucide-react";
+import { CheckCircle2, Heart, Link } from "lucide-react";
 
 type resultadoDoQuestionarioProps = {
   score: number;
@@ -15,10 +15,17 @@ function ResultadoDoQuestionario({restartTest,resultCategory,score}: resultadoDo
     <div className="space-y-8">
       <Card className={`border ${resultCategory.color}`}>
         <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">{resultCategory.icon}</div>
-          <CardTitle className="text-2xl">{resultCategory.title}</CardTitle>
+          <div className="flex justify-center mb-4"><Heart/></div>
+          <CardTitle className="text-2xl">Souu um teste</CardTitle>
           <CardDescription className="text-base">
-            {resultCategory.description}
+            lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            elementum, nibh quis luctus ultrices, lorem turpis aliquet
+            lectus, sit amet aliquam turpis nisl eu lectus. Ut euismod
+            ultrices lacus, eu bibendum nisl. Sed nec turpis in turpis
+            tincidunt ultricies. Sed euismod, nisl eget commodo
+            pellentesque, lacus eros aliquet nisi, sit amet blandit
+            sapien nisl eget nisl. Sed euismod, nisl eget commodo
+            pellentesque, lacus eros aliquet nisi, sit amet blandit
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -45,12 +52,9 @@ function ResultadoDoQuestionario({restartTest,resultCategory,score}: resultadoDo
           <div className="space-y-4">
             <h3 className="font-medium text-lg">Recomendações:</h3>
             <ul className="space-y-2">
-              {resultCategory.recommendations.map((rec, index) => (
-                <li key={index} className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-purple-700 mt-0.5 flex-shrink-0" />
-                  <span>{rec}</span>
-                </li>
-              ))}
+              <li>TEste</li>
+              <li>TEste</li>
+              <li>TEste</li>
             </ul>
           </div>
         </CardContent>

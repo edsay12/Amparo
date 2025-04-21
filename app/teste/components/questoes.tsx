@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -25,47 +30,6 @@ function Questoes({
 }: questoesProps) {
   const perguntaAtual = perguntas[currentQuestion];
 
-  const prepararDadosParaAPI = () => {
-    const dataNascimento = new Date(answers[1]);
-    const anoAtual = 2023;
-
-    const idade = anoAtual - dataNascimento.getFullYear();
-
-    const dadosAPI = {
-      ANO: 2023,
-      NU_IDADE_N: idade,
-      CS_RACA: answers[2],
-      LOCAL_OCOR: answers[3],
-      TIPO_RELACAO: answers[4],
-      AUTOR_SEXO: Number(answers[5]),
-      OUT_VEZES: Number(answers[6]),
-      CS_ESCOL_N: answers[7],
-      UF: "PE",
-    };
-
-    return dadosAPI;
-  };
-
-  const enviarParaAPI = async () => {
-    const dados = prepararDadosParaAPI();
-
-    try {
-      const response = await fetch("http://localhost:8000/predict", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dados),
-      });
-
-      const resultado = await response.json();
-      console.log("Resultado da API:", resultado);
-
-    } catch (error) {
-      console.error("Erro ao enviar para API:", error);
-    }
-  };
-
   return (
     <Card id="question-card">
       <CardHeader>
@@ -89,8 +53,14 @@ function Questoes({
           >
             {perguntaAtual.options.map((option) => (
               <div key={option.value} className="flex items-center space-x-2">
-                <RadioGroupItem value={option.value} id={`option-${option.value}`} />
-                <Label htmlFor={`option-${option.value}`} className="cursor-pointer">
+                <RadioGroupItem
+                  value={option.value}
+                  id={`option-${option.value}`}
+                />
+                <Label
+                  htmlFor={`option-${option.value}`}
+                  className="cursor-pointer"
+                >
                   {option.label}
                 </Label>
               </div>
@@ -112,21 +82,21 @@ function Questoes({
       </CardContent>
 
       <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={prevQuestion} disabled={currentQuestion === 0}>
+        <Button
+          variant="outline"
+          onClick={prevQuestion}
+          disabled={currentQuestion === 0}
+        >
           Anterior
         </Button>
         <Button
-          onClick={() => {
-            if (currentQuestion === perguntas.length - 1) {
-              enviarParaAPI();
-            } else {
-              nextQuestion();
-            }
-          }}
-          disabled={!answers[perguntaAtual.id]}
+          onClick={nextQuestion}
+          disabled={!answers[perguntas[currentQuestion].id]}
           className="bg-purple-700 hover:bg-purple-800"
         >
-          {currentQuestion === perguntas.length - 1 ? "Ver resultado" : "Próxima"}
+          {currentQuestion === perguntas.length - 1
+            ? "Ver resultado"
+            : "Próxima"}
         </Button>
       </CardFooter>
     </Card>
