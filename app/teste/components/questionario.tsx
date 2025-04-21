@@ -17,9 +17,9 @@ function Questionario() {
   const [resultCategory, setResultCategory] = useState<
     (typeof resultados)[0] | null
   >(null);
-  // Calcular progresso do teste
+  const [predictedResults, setPredictedResults] = useState<any>(null);
   const progress = ((currentQuestion + 1) / perguntas.length) * 100;
-  // para adicioanr efeito de scroll na pagina quando a pergunta é alterada
+
   useEffect(() => {
     const element = document.getElementById("question-card");
     if (element && currentQuestion > 0) {
@@ -37,53 +37,72 @@ function Questionario() {
     }
   }, [currentQuestion]);
 
-  // Lidar com a seleção de resposta
   const handleAnswer = (value: string) => {
     const newAnswers = { ...answers, [perguntas[currentQuestion].id]: value };
     setAnswers(newAnswers);
   };
 
-  // Avançar para a próxima pergunta
   const nextQuestion = () => {
     if (currentQuestion < perguntas.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      console.log(answers);
-      // Calcular pontuação final
       const totalScore = Object.values(answers).reduce(
         (sum, value) => sum + Number.parseInt(value),
         0
       );
       setScore(totalScore);
 
-      // Determinar categoria do resultado
-      const category =
-        resultados.find(
-          (cat) => totalScore >= cat.min && totalScore <= cat.max
-        ) || resultados[0];
-      setResultCategory(category);
-      console.log(showResult);
-      setShowResult(true);
+      fetchPrediction(answers);
     }
   };
 
-  // Voltar para a pergunta anterior
   const prevQuestion = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
     }
   };
 
-  // Reiniciar o teste
   const restartTest = () => {
     setCurrentQuestion(0);
     setAnswers({});
     setShowResult(false);
     setScore(0);
     setResultCategory(null);
+    setPredictedResults(null);
   };
+
+  const fetchPrediction = async (answers: Record<number, string>) => {
+    const data = {
+      ANO: 2023,  
+      NU_IDADE_N: 25, 
+      AUTOR_SEXO: 1, 
+      OUT_VEZES: 3,  
+      UF: 'SP',  
+      CS_RACA: 'Branca', 
+      CS_ESCOL_N: 'Superior', 
+      LOCAL_OCOR: 'Rua', 
+      TIPO_RELACAO: 'Familiar', 
+    };
+
+    try {
+      const response = await fetch("/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      setPredictedResults(result); 
+      setShowResult(true);
+    } catch (error) {
+      console.error("Erro ao fazer a requisição para a API:", error);
+    }
+  };
+
   return (
-    <Section className="max-w-[800px]  mx-auto md:py-5">
+    <Section className="max-w-[800px] mx-auto md:py-5">
       <SobreoQuestionario showResult={showResult || currentQuestion > 0} />
 
       {!showResult && !resultCategory && (
@@ -97,8 +116,9 @@ function Questionario() {
         />
       )}
 
-      {showResult && resultCategory && (
+      {showResult && predictedResults && (
         <ResultadoDoQuestionario
+          predictedResults={predictedResults}
           score={score}
           resultCategory={resultCategory}
           restartTest={restartTest}

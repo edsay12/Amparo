@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Input } from "@/components/ui/input"; // para o campo de data
+import { Input } from "@/components/ui/input";
 import { perguntas } from "@/lib/constants/perguntas";
 
 type questoesProps = {
@@ -24,6 +24,47 @@ function Questoes({
   prevQuestion,
 }: questoesProps) {
   const perguntaAtual = perguntas[currentQuestion];
+
+  const prepararDadosParaAPI = () => {
+    const dataNascimento = new Date(answers[1]);
+    const anoAtual = 2023;
+
+    const idade = anoAtual - dataNascimento.getFullYear();
+
+    const dadosAPI = {
+      ANO: 2023,
+      NU_IDADE_N: idade,
+      CS_RACA: answers[2],
+      LOCAL_OCOR: answers[3],
+      TIPO_RELACAO: answers[4],
+      AUTOR_SEXO: Number(answers[5]),
+      OUT_VEZES: Number(answers[6]),
+      CS_ESCOL_N: answers[7],
+      UF: "PE",
+    };
+
+    return dadosAPI;
+  };
+
+  const enviarParaAPI = async () => {
+    const dados = prepararDadosParaAPI();
+
+    try {
+      const response = await fetch("http://localhost:8000/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dados),
+      });
+
+      const resultado = await response.json();
+      console.log("Resultado da API:", resultado);
+
+    } catch (error) {
+      console.error("Erro ao enviar para API:", error);
+    }
+  };
 
   return (
     <Card id="question-card">
@@ -75,7 +116,13 @@ function Questoes({
           Anterior
         </Button>
         <Button
-          onClick={nextQuestion}
+          onClick={() => {
+            if (currentQuestion === perguntas.length - 1) {
+              enviarParaAPI();
+            } else {
+              nextQuestion();
+            }
+          }}
           disabled={!answers[perguntaAtual.id]}
           className="bg-purple-700 hover:bg-purple-800"
         >
