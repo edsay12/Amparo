@@ -11,6 +11,20 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import { perguntas } from "@/lib/constants/perguntas";
 
+const hoje = new Date();
+const formatDate = (date) => date.toISOString().split("T")[0];
+
+const dataMin = new Date(
+  hoje.getFullYear() - 100,
+  hoje.getMonth(),
+  hoje.getDate()
+);
+const dataMax = new Date(
+  hoje.getFullYear() - 2,
+  hoje.getMonth(),
+  hoje.getDate() - 1
+); 
+
 type questoesProps = {
   currentQuestion: number;
   progress: number;
@@ -74,6 +88,8 @@ function Questoes({
             <Input
               id="date-input"
               type="date"
+              min={formatDate(dataMin)}
+              max={formatDate(dataMax)}
               value={answers[perguntaAtual.id] || ""}
               onChange={(e) => handleAnswer(e.target.value)}
             />
