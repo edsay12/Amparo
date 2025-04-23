@@ -1,23 +1,23 @@
 "use client";
 import Section from "@/components/Section";
 import SobreoQuestionario from "./sobre-o-questionario";
-
 import { useEffect, useState } from "react";
 import { perguntas } from "@/lib/constants/perguntas";
-import { resultados } from "@/lib/constants/resultados";
-
+import { useTransition } from "react";
 import ResultadoDoQuestionario from "./questionario-resultado";
 import Questoes from "./questoes";
+import { Card, CardContent } from "@/components/ui/card";
+import getPredicoes from "@/lib/actions/getPredicoes";
+import { PredicoesResultados } from "@/@types";
+import { toast } from "sonner";
 
 function Questionario() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [isLoading, startTransition] = useTransition();
   const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState(0);
-  const [resultCategory, setResultCategory] = useState<
-    (typeof resultados)[0] | null
-  >(null);
-  const [predictedResults, setPredictedResults] = useState<any>(null);
+  const [predictedResults, setPredictedResults] =
+    useState<null | PredicoesResultados>(null);
   const progress = ((currentQuestion + 1) / perguntas.length) * 100;
 
   useEffect(() => {
@@ -46,13 +46,7 @@ function Questionario() {
     if (currentQuestion < perguntas.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      const totalScore = Object.values(answers).reduce(
-        (sum, value) => sum + Number.parseInt(value),
-        0
-      );
-
-      setScore(totalScore);
-      fetchPrediction(answers);
+      fetchPrediction();
       setShowResult(true);
     }
   };
@@ -67,58 +61,27 @@ function Questionario() {
     setCurrentQuestion(0);
     setAnswers({});
     setShowResult(false);
-    setScore(0);
-    setResultCategory(null);
     setPredictedResults(null);
   };
 
-  const prepararDadosParaAPI = () => {
-    const dataNascimento = new Date(answers[1]);
-    const anoAtual = 2023;
+  const fetchPrediction = async () => {
+    startTransition(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // um loadig pra dar animação
+      const resultado = await getPredicoes(answers);
 
-    const idade = anoAtual - dataNascimento.getFullYear();
-
-    const dadosAPI = {
-      ANO: 2023,
-      NU_IDADE_N: idade,
-      CS_RACA: answers[2],
-      LOCAL_OCOR: answers[3],
-      TIPO_RELACAO: answers[4],
-      AUTOR_SEXO: Number(answers[5]),
-      OUT_VEZES: Number(answers[6]),
-      CS_ESCOL_N: answers[7],
-      UF: "PE",
-    };
-
-    return dadosAPI;
-  };
-
-  const fetchPrediction = async (answers: Record<number, string>) => {
-    const dados = prepararDadosParaAPI();
-    console.log("Dados para API:", dados);
-
-    try {
-      const response = await fetch("http://localhost:8000/predict", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dados),
-      });
-
-      const resultado = await response.json();
-      console.log("Resultado da API:", resultado);
+      if (!resultado) {
+        toast.error("Devido a um erro do sistema, não foi possível calcular os níveis de risco.");
+        setPredictedResults(null);
+        restartTest();
+      }
       setPredictedResults(resultado);
-    } catch (error) {
-      console.error("Erro ao enviar para API:", error);
-    }
+    });
   };
-
   return (
     <Section className="max-w-[800px] mx-auto md:py-5">
       <SobreoQuestionario showResult={showResult || currentQuestion > 0} />
 
-      {!showResult && !resultCategory && (
+      {!predictedResults && !isLoading && (
         <Questoes
           currentQuestion={currentQuestion}
           progress={progress}
@@ -129,11 +92,32 @@ function Questionario() {
         />
       )}
 
-      {/* Tem que mudar a logica desse componente */}
-      {showResult && predictedResults && (
+      {isLoading && (
+        <Card className="max-h-[800px] w-full mx-auto">
+          <CardContent className="p-8 flex flex-col items-center justify-center min-h-[400px]">
+            <div className="flex items-center justify-center">
+              <div className="w-16 h-16 mb-12 border-4 border-purple-900 border-t-transparent rounded-full animate-spin" />
+            </div>
+
+            <h3 className="text-xl font-bold text-purple-800 mb-3 animate-pulse">
+              Analisando suas respostas
+            </h3>
+            <p className="text-gray-600 text-center max-w-md">
+              Estamos processando suas respostas e calculando os níveis de risco
+              para cada categoria de violência.
+            </p>
+
+            <div className="mt-8 w-full max-w-md">
+              <div className="h-2 bg-purple-100 rounded-full overflow-hidden">
+                <div className="h-full bg-purple-900 animate-[loading_2.5s_ease-in-out]"></div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+      {predictedResults && !isLoading && (
         <ResultadoDoQuestionario
-          score={score}
-          predictedResults={predictedResults}
+          results={predictedResults}
           restartTest={restartTest}
         />
       )}

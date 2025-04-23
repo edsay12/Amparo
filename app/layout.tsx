@@ -3,12 +3,14 @@ import "./globals.css";
 
 import { Inter } from "next/font/google";
 import NavBar from "@/components/shared/navBar";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Todos contra a violencia",
-  description: "Uma plataforma intertiva que busca ajudar no combate à violência contra a mulher.",
+  description:
+    "Uma plataforma intertiva que busca ajudar no combate à violência contra a mulher.",
 };
 
 export default function RootLayout({
@@ -19,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={`${inter.className}  antialiased`}>
+        <Toaster position="bottom-right" richColors />
         <NavBar />
         <main>{children}</main>
       </body>
