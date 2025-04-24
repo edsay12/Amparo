@@ -29,7 +29,7 @@ export const schemaStep2 = z.object({
 export const schemaStep3 = z.object({
   descricao: z.string({
     required_error: "Descreva o ocorrido",
-  }).min(10, "Descreva o ocorrido"),
+  }).min(100, "Deve conter pelo menos 100 caracteres"),
   agressor: z.string({}).optional(),
   testemunhas: z.string().optional(),
   evidencias: z.string({

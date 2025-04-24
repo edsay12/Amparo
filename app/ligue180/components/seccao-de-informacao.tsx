@@ -25,8 +25,6 @@ import {
   MessageSquare,
   FileText,
   HelpCircle,
-  BarChart,
-  CheckCircle2,
 } from "lucide-react";
 import Aviso from "@/components/aviso";
 import Section from "@/components/Section";

@@ -330,7 +330,7 @@ function FormularioDeCadastroDeDenuncia() {
                                   <FormItem>
                                     <FormLabel>Hora aproximada</FormLabel>
                                     <FormControl>
-                                      <Input {...field} type="date" />
+                                      <Input {...field} type="time" />
                                     </FormControl>
 
                                     <FormMessage />
@@ -497,8 +497,8 @@ function FormularioDeCadastroDeDenuncia() {
                                 </FormControl>
                                 <div className="space-y-1 leading-none">
                                   <FormLabel>
-                                    Voce deve confirmar a veracidade das
-                                    informações
+                                    Confirmo que as informações fornecidas
+                                    são verdadeiras
                                   </FormLabel>
                                 </div>
                               </FormItem>
@@ -515,8 +515,8 @@ function FormularioDeCadastroDeDenuncia() {
                             </Button>
                             <Button type="button" onClick={nextStep}>
                               {formStep && formStep == 2
-                                ? "Próximo"
-                                : "Enviar denúncia"}
+                                ? "Enviar denúncia"
+                                : "Proximo"}
                             </Button>
                           </div>
                         </div>
