@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import getPredicoes from "@/lib/actions/getPredicoes";
 import { PredicoesResultados } from "@/@types";
 import { toast } from "sonner";
+import Loading from "@/components/loading";
 
 function Questionario() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -70,7 +71,9 @@ function Questionario() {
       const resultado = await getPredicoes(answers);
 
       if (!resultado) {
-        toast.error("Devido a um erro do sistema, não foi possível calcular os níveis de risco.");
+        toast.error(
+          "Devido a um erro do sistema, não foi possível calcular os níveis de risco."
+        );
         setPredictedResults(null);
         restartTest();
       }
@@ -95,10 +98,7 @@ function Questionario() {
       {isLoading && (
         <Card className="max-h-[800px] w-full mx-auto">
           <CardContent className="p-8 flex flex-col items-center justify-center min-h-[400px]">
-            <div className="flex items-center justify-center">
-              <div className="w-16 h-16 mb-12 border-4 border-purple-900 border-t-transparent rounded-full animate-spin" />
-            </div>
-
+            <Loading />
             <h3 className="text-xl font-bold text-purple-800 mb-3 animate-pulse">
               Analisando suas respostas
             </h3>
