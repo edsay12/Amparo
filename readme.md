@@ -30,6 +30,7 @@ pip install pandas
 pip install joblib
 pip install lightgbm
 pip install scikit-learn
+pip install mysql-connector-python
 
 🚀 5. Rodar o Projeto FastAPI
 

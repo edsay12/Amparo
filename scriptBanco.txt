@@ -1,0 +1,24 @@
+-- Cria o banco de dados
+CREATE DATABASE IF NOT EXISTS denuncia CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Usa o banco de dados
+USE denuncia;
+
+-- Cria a tabela de denúncias
+CREATE TABLE IF NOT EXISTS denuncias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_completo VARCHAR(255) NOT NULL,
+    email VARCHAR(255),
+    telefone VARCHAR(20),
+    cidade VARCHAR(100),
+    tipo_violencia VARCHAR(100),
+    local_ocorrencia VARCHAR(255),
+    data_ocorrencia DATE,
+    hora_aproximada TIME,
+    frequencia VARCHAR(100),
+    descricao_detalhada TEXT,
+    informacoes_agressor TEXT,
+    testemunhas TEXT,
+    evidencias TEXT,
+    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
+);
