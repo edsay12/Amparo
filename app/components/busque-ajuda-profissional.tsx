@@ -13,7 +13,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { fadeInLeft, fadeUp } from "@/lib/animation/animations";
+import { fadeUp, stifiness } from "@/lib/animation/animations";
 import Link from "next/link";
 function BusqueAjudaProfissional() {
   return (
@@ -25,12 +25,9 @@ function BusqueAjudaProfissional() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
         {/* card psiciologo */}
         <motion.div
-          className="h-full"
-          variants={fadeInLeft}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          whileHover={{ scale: 1.05 }}
+          key={1}
+          variants={stifiness}
+          whileHover={{ y: -10, transition: { duration: 0.3 } }}
           whileTap={{ scale: 0.95 }}
         >
           <Card className=" w-full overflow-hidden min-h-[100%]">
@@ -87,12 +84,9 @@ function BusqueAjudaProfissional() {
         </motion.div>
         {/* card Advogado */}
         <motion.div
-          className="h-full"
-          variants={fadeInLeft}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          whileHover={{ scale: 1.05 }}
+          key={2}
+          variants={stifiness}
+          whileHover={{ y: -10, transition: { duration: 0.3 } }}
           whileTap={{ scale: 0.95 }}
         >
           <Card className=" w-full overflow-hidden min-h-[100%]">
@@ -148,12 +142,9 @@ function BusqueAjudaProfissional() {
         </motion.div>
         {/* card assitencia social */}
         <motion.div
-          className="h-full"
-          variants={fadeInLeft}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          whileHover={{ scale: 1.05 }}
+          key={3}
+          variants={stifiness}
+          whileHover={{ y: -10, transition: { duration: 0.3 } }}
           whileTap={{ scale: 0.95 }}
         >
           <Card className=" w-full overflow-hidden min-h-[100%]">
