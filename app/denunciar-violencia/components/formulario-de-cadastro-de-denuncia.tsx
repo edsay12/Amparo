@@ -66,11 +66,54 @@ function FormularioDeCadastroDeDenuncia() {
     resolver: zodResolver(denunciarViolenciaSchema),
     mode: "onChange",
   });
-  const processForm = (data: z.infer<typeof denunciarViolenciaSchema>) => {
-    console.log(data);
-    setSubmitted(true);
-  };
 
+  function adaptarDadosParaApi(dadosFormulario) {
+    return {
+      nome_completo: dadosFormulario.nome,
+      email: dadosFormulario.email,
+      telefone: dadosFormulario.telefone,
+      cidade: dadosFormulario.cidade,
+      tipo_violencia: dadosFormulario.tipoViolencia,
+      local_ocorrencia: dadosFormulario.local,
+      data_ocorrencia: dadosFormulario.data, 
+      hora_aproximada: dadosFormulario.hora,
+      frequencia: dadosFormulario.frequencia,
+      descricao_detalhada: dadosFormulario.descricao,
+      informacoes_agressor: dadosFormulario.agressor,
+      testemunhas: dadosFormulario.testemunhas,
+      evidencias: dadosFormulario.evidencias,
+    };
+  }
+
+  async function enviarDenuncia(payload) {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/denuncias/criar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });   
+  
+      if (!response.ok) {
+        throw new Error('Erro ao enviar denúncia');
+      }
+  
+      console.log('Denúncia enviada com sucesso!');
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Erro no envio:', error);
+    }
+  }
+
+  const processForm = async (data) => {
+    console.log("Dados originais:", data);
+    const payload = adaptarDadosParaApi(data);
+    console.log("Payload adaptado:", payload);
+  
+    await enviarDenuncia(payload);
+  };
+  
   const nextStep = async () => {
     const fields = stepsSchema[formStep].fields;
     const output = await form.trigger(fields as FielName[], {
@@ -78,12 +121,11 @@ function FormularioDeCadastroDeDenuncia() {
     });
     if (!output) return;
 
-    if (formStep == 2) {
-      {
-        await form.handleSubmit(processForm)();
-      }
+    if (formStep === 2) {
+      await form.handleSubmit(processForm)();
+    } else {
+      setFormStep(formStep + 1);
     }
-    setFormStep(formStep + 1);
   };
 
   const prevStep = () => {
@@ -126,7 +168,7 @@ function FormularioDeCadastroDeDenuncia() {
                 </CardHeader>
                 <CardContent>
                   <Form {...form}>
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={form.handleSubmit(processForm)}>
                       {formStep === 0 && (
                         <div className="space-y-6">
                           <div className="space-y-2">
@@ -514,9 +556,7 @@ function FormularioDeCadastroDeDenuncia() {
                               Voltar
                             </Button>
                             <Button type="button" onClick={nextStep}>
-                              {formStep && formStep == 2
-                                ? "Enviar denúncia"
-                                : "Proximo"}
+                              Enviar denúncia
                             </Button>
                           </div>
                         </div>
@@ -576,6 +616,7 @@ function FormularioDeCadastroDeDenuncia() {
           variants={fadeInRight}
           initial="hidden"
           whileInView="visible"
+          viewport={{ once: true }}
           custom={0}
         >
           <TabsContent value="informacoes">
