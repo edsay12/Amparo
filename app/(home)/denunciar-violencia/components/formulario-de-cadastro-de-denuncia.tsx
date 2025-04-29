@@ -38,6 +38,7 @@ import {
 import { useForm } from "react-hook-form";
 import { denunciarViolenciaSchema } from "@/lib/schemas";
 import { z } from "zod";
+import { toast } from "sonner";
 
 const stepsSchema = [
   {
@@ -101,8 +102,8 @@ function FormularioDeCadastroDeDenuncia() {
   
       console.log('Denúncia enviada com sucesso!');
       setSubmitted(true);
-    } catch (error) {
-      console.error('Erro no envio:', error);
+    } catch  {
+      toast.error("Ocorreu um erro ao enviar a denúncia");
     }
   }
 

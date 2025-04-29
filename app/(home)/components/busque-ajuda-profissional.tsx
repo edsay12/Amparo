@@ -6,9 +6,9 @@ import {
   CardDescription,
   CardHeader,
 } from "@/components/ui/card";
-import psicologo from "../assets/psicologo.jpg";
-import juridico from "../assets/juridico.jpg";
-import assistenteSocial from "../assets/assitenteSocial.jpg";
+import psicologo from "../../assets/psicologo.jpg";
+import juridico from "../../assets/juridico.jpg";
+import assistenteSocial from "../../assets/assitenteSocial.jpg";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
