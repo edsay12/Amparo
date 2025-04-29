@@ -61,43 +61,6 @@ const mensagemRiscoGeral = (percentual: number) => {
   return "Seu risco geral é alto. Busque apoio e proteção imediatamente. Você merece viver com segurança e respeito.";
 };
 
-const gerarMensagemGeral = (results: {
-  fisica: number;
-  psicológica: number;
-  outros: number;
-  nenhuma: number;
-}) => {
-  const { fisica, psicológica, outros, nenhuma } = results;
-
-  const maiorValor = Math.max(fisica, psicológica, outros, nenhuma);
-
-  // Verificar se física e psicológica estão muito próximas (empate)
-  if (
-    Math.abs(fisica - psicológica) <= 5 &&
-    fisica > outros &&
-    fisica > nenhuma
-  ) {
-    return "Tanto o risco de sofrimento psicológico quanto o risco físico aparecem de forma significativa. Atenção integral é necessária para sua proteção completa.";
-  }
-
-  if (maiorValor === fisica) {
-    return "As respostas indicam que, caso haja violência, ela tende a ser predominantemente física. Sua segurança física merece atenção máxima.";
-  }
-
-  if (maiorValor === psicológica) {
-    return "As respostas sugerem que o sofrimento emocional é o risco mais presente. Sua saúde mental merece todo cuidado.";
-  }
-
-  if (maiorValor === outros) {
-    return "Identificamos que, caso haja violência, ela pode se manifestar de formas diversas (financeira, sexual, social). Atenção em diferentes áreas é importante.";
-  }
-
-  if (maiorValor === nenhuma) {
-    return "Suas respostas indicam um ambiente com poucos sinais de violência. Continue priorizando relações saudáveis.";
-  }
-
-  return "As respostas indicam sinais variados de risco. Busque apoio se sentir necessidade. Você merece viver em segurança e respeito.";
-};
 
 type resultadoDoQuestionarioProps = {
   results: null | PredicoesResultados;
