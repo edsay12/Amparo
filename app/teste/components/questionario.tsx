@@ -115,7 +115,7 @@ function Questionario() {
           </CardContent>
         </Card>
       )}
-      {predictedResults && !isLoading && (
+      {true && (
         <ResultadoDoQuestionario
           results={predictedResults}
           restartTest={restartTest}

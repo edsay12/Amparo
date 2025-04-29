@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { AlertTriangle, Heart } from "lucide-react";
 
 import { ShieldAlert } from "lucide-react";
+import Link from "next/link";
 
 // Funções auxiliares para determinar o nível de risco e mensagens
 
@@ -17,36 +18,46 @@ const getNivelRisco = (percentual: number) => {
 
 const mensagemFisica = (percentual: number) => {
   const nivel = getNivelRisco(percentual);
-  if (nivel === "baixo") return "Seu risco de violência física é considerado baixo. Entretanto, continue cuidando da sua segurança. Se necessário, procure ajuda.";
-  if (nivel === "moderado") return "Há sinais moderados de risco de violência física. Busque apoio e mantenha-se segura. Sua segurança é muito importante. Procure ajuda se necessário.";
+  if (nivel === "baixo")
+    return "Seu risco de violência física é considerado baixo. Entretanto, continue cuidando da sua segurança. Se necessário, procure ajuda.";
+  if (nivel === "moderado")
+    return "Há sinais moderados de risco de violência física. Busque apoio e mantenha-se segura. Sua segurança é muito importante. Procure ajuda se necessário.";
   return "Foi identificado que você possui altos riscos de sofrer alguma violência física. Busque proteção imediatamente e mantenha-se segura. Você não está sozinha.";
 };
 
 const mensagemPsicologica = (percentual: number) => {
   const nivel = getNivelRisco(percentual);
-  if (nivel === "baixo") return "Neste momento, seus sinais de risco de sofrimento psicológico são baixos. Continue cuidando de sua saúde mental.";
-  if (nivel === "moderado") return "Existem indícios moderados de que você pode sofrer de alguma violência psicológica. Sua saúde mental importa muito. Procure apoio se necessário.";
+  if (nivel === "baixo")
+    return "Neste momento, seus sinais de risco de sofrimento psicológico são baixos. Continue cuidando de sua saúde mental.";
+  if (nivel === "moderado")
+    return "Existem indícios moderados de que você pode sofrer de alguma violência psicológica. Sua saúde mental importa muito. Procure apoio se necessário.";
   return "Alto risco de violência psicológica identificada. Você possui altas chances de sofrer alguma violência psicológica. Você merece apoio e respeito, busque ajuda e apoio psicológico e emocional.";
 };
 
 const mensagemOutros = (percentual: number) => {
   const nivel = getNivelRisco(percentual);
-  if (nivel === "baixo") return "Nenhum risco relevante de outros tipos de violência foi identificado. Entretanto, continue atenta ao seu redor e cuide de si mesma.";
-  if (nivel === "moderado") return "Alguns sinais moderados detectados de que você corre riscos de sofrer de outros tipos de violência. Atenção é importante.";
+  if (nivel === "baixo")
+    return "Nenhum risco relevante de outros tipos de violência foi identificado. Entretanto, continue atenta ao seu redor e cuide de si mesma.";
+  if (nivel === "moderado")
+    return "Alguns sinais moderados detectados de que você corre riscos de sofrer de outros tipos de violência. Atenção é importante.";
   return "Foram identificados altos riscos de que você pode sofrer de outros tipos de violência. Cuide-se e procure apoio. Busque se informar sobre seus direitos, como se proteger e a identificar possíveis problemas.";
 };
 
 const mensagemNenhuma = (percentual: number) => {
   const nivel = getNivelRisco(percentual);
-  if (nivel === "alto") return "Suas respostas mostram um ambiente saudável neste momento. Você possui uma alta probabilidade de não sofrer de violência. Continue priorizando relações saudáveis e mantenha-se segura.";
-  if (nivel === "moderado") return "Baixo risco geral identificado, mas é importante manter a atenção. Há uma possibilidade moderada de que você possa sofrer de violência. Continue cuidando de si mesma e fique atenta ao seu redor.";
+  if (nivel === "alto")
+    return "Suas respostas mostram um ambiente saudável neste momento. Você possui uma alta probabilidade de não sofrer de violência. Continue priorizando relações saudáveis e mantenha-se segura.";
+  if (nivel === "moderado")
+    return "Baixo risco geral identificado, mas é importante manter a atenção. Há uma possibilidade moderada de que você possa sofrer de violência. Continue cuidando de si mesma e fique atenta ao seu redor.";
   return "Alguns sinais de risco surgiram. Foi demonstrado que existem poucas chances de você não sofrer alguma violência. Portanto, sua atenção e cuidado são fundamentais, mantenha-se informada e proteja-se.";
 };
 
 const mensagemRiscoGeral = (percentual: number) => {
   const nivel = getNivelRisco(percentual);
-  if (nivel === "baixo") return "Seu risco geral é considerado baixo. Continue valorizando relações seguras e saudáveis.";
-  if (nivel === "moderado") return "Seu risco geral é moderado. Atenção e apoio podem ser importantes para seu bem-estar.";
+  if (nivel === "baixo")
+    return "Seu risco geral é considerado baixo. Continue valorizando relações seguras e saudáveis.";
+  if (nivel === "moderado")
+    return "Seu risco geral é moderado. Atenção e apoio podem ser importantes para seu bem-estar.";
   return "Seu risco geral é alto. Busque apoio e proteção imediatamente. Você merece viver com segurança e respeito.";
 };
 
@@ -61,7 +72,11 @@ const gerarMensagemGeral = (results: {
   const maiorValor = Math.max(fisica, psicológica, outros, nenhuma);
 
   // Verificar se física e psicológica estão muito próximas (empate)
-  if (Math.abs(fisica - psicológica) <= 5 && fisica > outros && fisica > nenhuma) {
+  if (
+    Math.abs(fisica - psicológica) <= 5 &&
+    fisica > outros &&
+    fisica > nenhuma
+  ) {
     return "Tanto o risco de sofrimento psicológico quanto o risco físico aparecem de forma significativa. Atenção integral é necessária para sua proteção completa.";
   }
 
@@ -119,8 +134,8 @@ function ResultadoDoQuestionario({
             />
             <p className="text-sm font-medium">{results?.fisica}% de risco</p>
             <p className="text-xs text-gray-600 mt-2">
-  {mensagemFisica(results?.fisica || 0)}
-</p>
+              {mensagemFisica(results?.fisica || 0)}
+            </p>
           </div>
 
           <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
@@ -136,8 +151,8 @@ function ResultadoDoQuestionario({
               {results?.psicológica}% de risco
             </p>
             <p className="text-xs text-gray-600 mt-2">
-  {mensagemPsicologica(results?.psicológica || 0)}
-</p>
+              {mensagemPsicologica(results?.psicológica || 0)}
+            </p>
           </div>
 
           <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
@@ -151,8 +166,8 @@ function ResultadoDoQuestionario({
             />
             <p className="text-sm font-medium">{results?.outros}% de risco</p>
             <p className="text-xs text-gray-600 mt-2">
-  {mensagemOutros(results?.outros || 0)}
-</p>
+              {mensagemOutros(results?.outros || 0)}
+            </p>
           </div>
 
           <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
@@ -166,36 +181,13 @@ function ResultadoDoQuestionario({
             />
             <p className="text-sm font-medium">{results?.nenhuma}% de risco</p>
             <p className="text-xs text-gray-600 mt-2">
-  {mensagemNenhuma(results?.nenhuma || 0)}
-</p>
+              {mensagemNenhuma(results?.nenhuma || 0)}
+            </p>
           </div>
         </div>
 
         <div className="mt-6 p-4 rounded-lg border border-purple-200 bg-white">
-
-        <div className="mt-4 p-4 bg-purple-50 rounded-lg border border-purple-100">
-  <h4 className="font-bold text-lg mb-2">Resumo Geral</h4>
-  <p className="text-sm text-gray-700">
-    {gerarMensagemGeral({
-      fisica: results?.fisica || 0,
-      psicológica: results?.psicológica || 0,
-      outros: results?.outros || 0,
-      nenhuma: results?.nenhuma || 0
-    })}
-  </p>
-</div>
-
-        <h4 className="mt-4 font-bold text-lg mb-2">
-          Nível de Risco Geral:{" "}
-          <span className="text-purple-700">
-            {(
-              ((results?.fisica || 0) +
-              (results?.psicológica || 0) +
-              (results?.outros || 0) +
-              (results?.nenhuma || 0)) / 4
-            ).toFixed(1)}%
-          </span>
-        </h4>
+          <h4 className="mt-4 font-bold text-lg mb-2">Nível de Risco Geral</h4>
           <Progress
             value={
               ((results?.fisica || 0) +
@@ -207,13 +199,14 @@ function ResultadoDoQuestionario({
             className="h-4 mb-3"
           />
           <p className="text-sm text-gray-600 mt-2">
-  {mensagemRiscoGeral(
-    ((results?.fisica || 0) +
-    (results?.psicológica || 0) +
-    (results?.outros || 0) +
-    (results?.nenhuma || 0)) / 4
-  )}
-</p>
+            {mensagemRiscoGeral(
+              ((results?.fisica || 0) +
+                (results?.psicológica || 0) +
+                (results?.outros || 0) +
+                (results?.nenhuma || 0)) /
+                4
+            )}
+          </p>
 
           <div className="mt-4 bg-purple-50 p-4 rounded-lg border border-purple-100">
             <h5 className="font-semibold mb-2">O que fazer agora?</h5>
@@ -228,8 +221,56 @@ function ResultadoDoQuestionario({
               </li>
               <li>Procure uma Delegacia da Mulher mais próxima</li>
               <li>Busque apoio de amigos e familiares de confiança</li>
-              <li>Considere procurar ajuda psicológica especializada</li>
             </ul>
+          </div>
+        </div>
+
+        {/* Seção de transição para busca de profissionais */}
+        <div className="mt-8 bg-white p-6 rounded-lg border-2 border-purple-300 shadow-md">
+          <h3 className="text-xl font-bold text-purple-800 mb-3">
+            Encontre o profissional certo para você
+          </h3>
+
+          <p className="mb-4 text-gray-700">
+            Independentemente dos resultados deste quiz, conversar com um
+            profissional especializado pode fazer toda a diferença na sua
+            jornada. Cada situação é única e merece atenção personalizada.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-4 mb-6">
+            <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+              <h4 className="font-semibold text-purple-700 mb-2">Psicólogos</h4>
+              <p className="text-sm text-gray-600">
+                Oferecem suporte emocional e ferramentas para lidar com traumas,
+                ansiedade e recuperar sua autoestima.
+              </p>
+            </div>
+
+            <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+              <h4 className="font-semibold text-purple-700 mb-2">
+                Assistentes Sociais
+              </h4>
+              <p className="text-sm text-gray-600">
+                Ajudam com recursos práticos, acesso a serviços públicos e
+                desenvolvimento de planos de segurança.
+              </p>
+            </div>
+
+            <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+              <h4 className="font-semibold text-purple-700 mb-2">Advogados</h4>
+              <p className="text-sm text-gray-600">
+                Orientam sobre seus direitos legais, medidas protetivas e
+                representação em processos judiciais.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link href="/ajuda-profissional">
+              <Button size="lg" className="bg-purple-700 hover:bg-purple-800">
+                Encontrar Profissionais Especializados
+              </Button>
+            </Link>
           </div>
         </div>
 
