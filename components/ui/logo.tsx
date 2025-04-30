@@ -1,10 +1,10 @@
 import { Shield } from "lucide-react";
-
+import logo from "../../app/assets/logo.png";
+import Image from "next/image";
 function Logo() {
   return (
     <div className="flex  items-center justify-center gap-2">
-      <Shield className="text-violet-500 h-6 w-6" />
-      <h1 className=" font-bold text-xl">Contra a Violência</h1>
+      <Image className="" width={100} height={100} src={logo} alt="Amparo" />
     </div>
   );
 }
