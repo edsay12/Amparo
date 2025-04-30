@@ -49,7 +49,7 @@ const mensagemNenhuma = (percentual: number) => {
     return "Suas respostas mostram um ambiente saudável neste momento. Você possui uma alta probabilidade de não sofrer de violência. Continue priorizando relações saudáveis e mantenha-se segura.";
   if (nivel === "moderado")
     return "Baixo risco geral identificado, mas é importante manter a atenção. Há uma possibilidade moderada de que você possa sofrer de violência. Continue cuidando de si mesma e fique atenta ao seu redor.";
-  return "Alguns sinais de risco surgiram. Foi demonstrado que existem poucas chances de você não sofrer alguma violência. Portanto, sua atenção e cuidado são fundamentais, mantenha-se informada e proteja-se.";
+  return "Sinais de risco surgiram. Foi demonstrado que existem poucas chances de você não sofrer alguma violência. Portanto, sua atenção e cuidado são fundamentais, mantenha-se informada e proteja-se.";
 };
 
 const mensagemRiscoGeral = (percentual: number) => {
@@ -142,7 +142,7 @@ function ResultadoDoQuestionario({
               value={results?.nenhuma}
               className="h-3 mb-1 [&>div]:bg-yellow-500"
             />
-            <p className="text-sm font-medium">{results?.nenhuma}% de risco</p>
+            <p className="text-sm font-medium">{results?.nenhuma}% de segurança</p>
             <p className="text-xs text-gray-600 mt-2">
               {mensagemNenhuma(results?.nenhuma || 0)}
             </p>
@@ -150,7 +150,7 @@ function ResultadoDoQuestionario({
         </div>
 
         <div className="mt-6 p-4 rounded-lg border border-purple-200 bg-white">
-          <h4 className="mt-4 font-bold text-lg mb-2">Nível de Risco Geral</h4>
+          {/* <h4 className="mt-4 font-bold text-lg mb-2">Nível de Risco Geral</h4>
           <Progress
             value={
               ((results?.fisica || 0) +
@@ -160,8 +160,8 @@ function ResultadoDoQuestionario({
               4
             }
             className="h-4 mb-3"
-          />
-          <p className="text-sm text-gray-600 mt-2">
+          /> */}
+          {/* <p className="text-sm text-gray-600 mt-2">
             {mensagemRiscoGeral(
               ((results?.fisica || 0) +
                 (results?.psicológica || 0) +
@@ -169,7 +169,33 @@ function ResultadoDoQuestionario({
                 (results?.nenhuma || 0)) /
                 4
             )}
+          </p> */}
+
+<h4 className="font-semibold text-lg mb-2 text-purple-800">
+            Tipo de risco mais relevante
+          </h4>
+          <p className="text-sm text-gray-700 mb-4">
+            {(() => {
+              const riscos = [
+                { tipo: "física", valor: results?.fisica || 0 },
+                { tipo: "psicológica", valor: results?.psicológica || 0 },
+                { tipo: "outros tipos", valor: results?.outros || 0 },
+              ];
+              const maisArriscado = riscos.sort((a, b) => b.valor - a.valor)[0];
+
+              return (
+                <>
+                  Verificamos que o maior risco identificado nas suas respostas é o de{" "}
+                  <strong>violência {maisArriscado.tipo}</strong>. Saiba mais sobre esse tipo de violência e como reconhecer sinais na nossa página:
+                </>
+              );
+            })()}
           </p>
+          <Link href="/tipos-de-violencia">
+            <Button variant="secondary" className="text-purple-800">
+              Ver tipos de violência
+            </Button>
+          </Link>
 
           <div className="mt-4 bg-purple-50 p-4 rounded-lg border border-purple-100">
             <h5 className="font-semibold mb-2">O que fazer agora?</h5>

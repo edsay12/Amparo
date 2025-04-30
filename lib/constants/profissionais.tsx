@@ -12,7 +12,7 @@ import advogada1 from "../../app/assets/profissionais/advogada1.jpg";
 export const Profissionais: Profissional[] = [
   {
     id: 1,
-    nome: "Dra. Ana Silva",
+    nome: "Psicóloga - Dra. Ana Silva",
     image: psicologa1,
     titulo: "Psicóloga - CRP 06/12345",
     tipo: "psicologos",
@@ -33,7 +33,7 @@ export const Profissionais: Profissional[] = [
   },
   {
     id: 2,
-    nome: "Dr. Carlos Mendes",
+    nome: "Psicólogo - Dr. Carlos Mendes",
     titulo: "Psicólogo - CRP 05/54321",
     tipo: "psicologos",
     image: psicologo1,
@@ -54,7 +54,7 @@ export const Profissionais: Profissional[] = [
   },
   {
     id: 3,
-    nome: "Dra. Juliana Costa",
+    nome: "Psicóloga - Dra. Juliana Costa",
     titulo: "Psicóloga - CRP 08/98765",
     tipo: "psicologos",
     image: psicologa2,
@@ -75,7 +75,7 @@ export const Profissionais: Profissional[] = [
   },
   {
     id: 5,
-    nome: "Mariana Oliveira",
+    nome: "Assistente Social - Mariana Oliveira",
     titulo: "Assistente Social - CRESS 9876",
     tipo: "assistentes",
     image: assistenteSocial1,
@@ -96,7 +96,7 @@ export const Profissionais: Profissional[] = [
   },
   {
     id: 7,
-    nome: "Dra. Patrícia Santos",
+    nome: "Advogada - Dra. Patrícia Santos",
     titulo: "Advogada - OAB 123456",
     tipo: "advogados",
     badge: "Advogada",
@@ -117,7 +117,7 @@ export const Profissionais: Profissional[] = [
   },
   {
     id: 9,
-    nome: "Dra. Fernanda Lima",
+    nome: "Psiquiatra - Dra. Fernanda Lima",
     titulo: "Psiquiatra - CRM 54321",
     tipo: "medicos",
     badge: "Médica",
@@ -138,7 +138,7 @@ export const Profissionais: Profissional[] = [
   },
   {
     id: 11,
-    nome: "Dr. Roberto Almeida",
+    nome: "Psicólogo - Dr. Roberto Almeida",
     titulo: "Psicólogo - CRP 07/7654",
     tipo: "psicologos",
     badge: "Psicólogo",
@@ -159,7 +159,7 @@ export const Profissionais: Profissional[] = [
   },
   {
     id: 12,
-    nome: "Dra. Camila Rocha",
+    nome: "Advogada - Dra. Camila Rocha",
     titulo: "Advogada - OAB 87654",
     tipo: "advogados",
     badge: "Advogada",

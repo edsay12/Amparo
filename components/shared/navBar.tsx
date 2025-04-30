@@ -11,10 +11,10 @@ const menuItens = [
     name: "Início",
     href: "/#inicio",
   },
-  {
-    name: "Sobre",
-    href: "#sobre",
-  },
+  // {
+  //   name: "Sobre",
+  //   href: "#sobre",
+  // },
   {
     name: "Tipos de Violência",
     href: "#tipos",
@@ -28,10 +28,10 @@ const menuItens = [
     href: "#onde",
   },
 
-  {
-    name: "Parceiros",
-    href: "#parceiros",
-  },
+  // {
+  //   name: "Parceiros",
+  //   href: "#parceiros",
+  // },
 ];
 
 function NavBar() {

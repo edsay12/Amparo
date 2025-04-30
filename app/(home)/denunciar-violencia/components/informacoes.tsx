@@ -107,7 +107,7 @@ function Informacoes() {
                 </p>
                 <p>
                   <strong>Botão de saída rápida:</strong> Use o botão vermelho
-                  no canto superior direito para sair rapidamente desta página
+                  abaixo para sair rapidamente desta página
                   caso alguém se aproxime.
                 </p>
                 <p>

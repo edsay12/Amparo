@@ -20,7 +20,7 @@ export const perguntas = [
   {
     id: 3,
     type: "radio",
-    question: "Onde ocorreu o fato?",
+    question: "Sobre qual ambiente estamos falando? Qual é o ambiente principal que você frequenta ou se sente exposta a riscos?",
     options: [
       { label: "Bar ou similar", value: "Bar ou similar" },
       { label: "Comércio/Serviços", value: "Comércio/Serviços" },
@@ -36,7 +36,7 @@ export const perguntas = [
   {
     id: 4,
     type: "radio",
-    question: "Qual a relação com o(a) autor(a)?",
+    question: "Qual seria o tipo de vínculo com alguém que possa representar risco?",
     options: [
       { label: "Conhecido(a)", value: "conhecido(a)" },
       { label: "Cônjuge", value: "cônjuge" },
@@ -50,7 +50,7 @@ export const perguntas = [
   {
     id: 5,
     type: "radio",
-    question: "Qual o sexo do(a) autor(a)?",
+    question: "Em contextos em que se sente mais vulnerável, com qual sexo essa pessoa geralmente se identifica?",
     options: [
       { label: "Masculino", value: "1" },
       { label: "Feminino", value: "2" },
@@ -61,7 +61,7 @@ export const perguntas = [
   {
     id: 6,
     type: "radio",
-    question: "Já aconteceu outras vezes?",
+    question: "Houve momentos anteriores que te fizeram sentir em risco ou desconfortável? Você já se sentiu exposta a situações parecidas anteriormente?",
     options: [
       { label: "Sim", value: "1" },
       { label: "Não", value: "2" },
