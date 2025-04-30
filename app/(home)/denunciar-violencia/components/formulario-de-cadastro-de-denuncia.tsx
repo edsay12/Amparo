@@ -58,6 +58,18 @@ const stepsSchema = [
   },
 ];
 
+const hoje = new Date();
+const formatDate = (date: Date) => date.toISOString().split("T")[0];
+
+const dataMinima = new Date(
+  hoje.getFullYear() - 100,
+  hoje.getMonth(),
+  hoje.getDate()
+);
+const dataMaxima = hoje;
+
+
+
 type FielName = keyof z.infer<typeof denunciarViolenciaSchema>;
 function FormularioDeCadastroDeDenuncia() {
   const [formStep, setFormStep] = useState(0);
@@ -359,7 +371,10 @@ function FormularioDeCadastroDeDenuncia() {
                                   <FormItem>
                                     <FormLabel>Data da ocorrência *</FormLabel>
                                     <FormControl>
-                                      <Input {...field} type="date" />
+                                      <Input {...field} 
+                                      type="date"
+                                      min={formatDate(dataMinima)}
+                                      max={formatDate(dataMaxima)} />
                                     </FormControl>
 
                                     <FormMessage />
