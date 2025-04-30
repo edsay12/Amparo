@@ -61,7 +61,6 @@ const mensagemRiscoGeral = (percentual: number) => {
   return "Seu risco geral é alto. Busque apoio e proteção imediatamente. Você merece viver com segurança e respeito.";
 };
 
-
 type resultadoDoQuestionarioProps = {
   results: null | PredicoesResultados;
 
@@ -142,7 +141,9 @@ function ResultadoDoQuestionario({
               value={results?.nenhuma}
               className="h-3 mb-1 [&>div]:bg-yellow-500"
             />
-            <p className="text-sm font-medium">{results?.nenhuma}% de segurança</p>
+            <p className="text-sm font-medium">
+              {results?.nenhuma}% de segurança
+            </p>
             <p className="text-xs text-gray-600 mt-2">
               {mensagemNenhuma(results?.nenhuma || 0)}
             </p>
@@ -150,28 +151,7 @@ function ResultadoDoQuestionario({
         </div>
 
         <div className="mt-6 p-4 rounded-lg border border-purple-200 bg-white">
-          {/* <h4 className="mt-4 font-bold text-lg mb-2">Nível de Risco Geral</h4>
-          <Progress
-            value={
-              ((results?.fisica || 0) +
-                (results?.psicológica || 0) +
-                (results?.outros || 0) +
-                (results?.nenhuma || 0)) /
-              4
-            }
-            className="h-4 mb-3"
-          /> */}
-          {/* <p className="text-sm text-gray-600 mt-2">
-            {mensagemRiscoGeral(
-              ((results?.fisica || 0) +
-                (results?.psicológica || 0) +
-                (results?.outros || 0) +
-                (results?.nenhuma || 0)) /
-                4
-            )}
-          </p> */}
-
-<h4 className="font-semibold text-lg mb-2 text-purple-800">
+          <h4 className="font-semibold text-lg mb-2 text-purple-800">
             Tipo de risco mais relevante
           </h4>
           <p className="text-sm text-gray-700 mb-4">
@@ -185,8 +165,10 @@ function ResultadoDoQuestionario({
 
               return (
                 <>
-                  Verificamos que o maior risco identificado nas suas respostas é o de{" "}
-                  <strong>violência {maisArriscado.tipo}</strong>. Saiba mais sobre esse tipo de violência e como reconhecer sinais na nossa página:
+                  Verificamos que o maior risco identificado nas suas respostas
+                  é o de <strong>violência {maisArriscado.tipo}</strong>. Saiba
+                  mais sobre esse tipo de violência e como reconhecer sinais na
+                  nossa página:
                 </>
               );
             })()}
@@ -256,7 +238,7 @@ function ResultadoDoQuestionario({
 
           <div className="text-center">
             <Link href="/ajuda-profissional">
-              <Button size="lg" className="bg-purple-700 hover:bg-purple-800">
+              <Button size="lg"  className="bg-purple-700 hover:bg-purple-800 w-full">
                 Encontrar Profissionais Especializados
               </Button>
             </Link>
